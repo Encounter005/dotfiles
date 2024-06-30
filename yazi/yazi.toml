@@ -1,0 +1,38 @@
+[opener]
+text = [
+    { run = 'nvim "$1" ' , block = true},
+]
+
+archive = [
+    { run = 'unar "$1"',  block = true}
+
+]
+
+
+[open]
+rules = [
+	{ mime = "text/*", use = "text" },
+
+	# { mime = "application/json", use = "text" },
+	{ name = "*.json", use = "text" },
+
+	# Multiple openers for a single rule
+	{ name = "*.html", use = [ "browser", "text" ] },
+]
+
+
+[plugin]
+prepend_previewers = [
+  # mardown previewer
+  { name = "*.md", exec = "glow" },
+	# Archive previewer
+	{ mime = "application/zip",             run = "ouch" },
+	{ mime = "application/gzip",            run = "ouch" },
+	{ mime = "application/x-tar",           run = "ouch" },
+	{ mime = "application/x-bzip",          run = "ouch" },
+	{ mime = "application/x-bzip2",         run = "ouch" },
+	{ mime = "application/x-7z-compressed", run = "ouch" },
+	{ mime = "application/x-rar",           run = "ouch" },
+	{ mime = "application/xz",              run = "ouch" },
+	{ mime = "application/pdf",             run = "ouch" },
+]

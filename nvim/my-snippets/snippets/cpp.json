@@ -1,0 +1,82 @@
+{
+    "solu": {
+        "prefix": "solu",
+        "body": [
+            "class solve",
+            "{",
+            "public:",
+            "\t$1 $2($3) {",
+            "\t\t$4",
+            "\t}",
+            "};"
+        ],
+        "description": "leetcode class solution template"
+    },
+    "ac": {
+        "prefix": "ac",
+        "body": [
+            "//#pragma GCC optimize(2)",
+            "#include <bits/stdc++.h>",
+            "using ll = long long;",
+            "using db = double;",
+            "using pii = std::pair<int , int>;",
+            "",
+            "#define debug(x) std::cerr << #x << \" = \" << x << std::endl;",
+            "template<typename Container>",
+            "void printPII(Container&& a) {",
+            "\tstd::cerr<< \"Container a is \\n\"; ",
+            "\tfor(const auto& i : a) {",
+            "\t\tstd::cerr << i.first << ' ' << i.second << \"\\n\";",
+            "\t}",
+            "\tstd::cerr << '\\n';",
+            "}",
+            "template<typename Container>",
+            "void print(Container&& a) {",
+            "\tstd::cerr<< \"Container a is \"; ",
+            "\tfor(const auto& i : a) {",
+            "\t\tstd::cerr << i << ' ';",
+            "\t}",
+            "\tstd::cerr << '\\n';",
+            "}",
+            "",
+            "",
+            "void solve() {",
+            "\t$0",
+            "}",
+            "",
+            "int main() {",
+            "",
+            "\tstd::ios::sync_with_stdio(false);",
+            "\tstd::cin.tie(nullptr);",
+            "",
+            "\tint T = 1;",
+            "\t//std::cin >> T;",
+            "\twhile(T--){",
+            "\t\tsolve();",
+            "\t}",
+            "",
+            "\treturn 0;",
+            "}"
+        ],
+        "description": "problem solution template"
+    },
+    "fc": {
+        "prefix": "fc",
+        "body": [
+            "#include <bits/stdc++.h>",
+            "using namespace std;",
+            "using pii = pair<int , int>;",
+            "using ll = long long;",
+            "",
+            "",
+            "int main() {",
+            "\tios::sync_with_stdio(false);",
+            "\tcin.tie(nullptr);",
+            "",
+            "\t$0",
+            "",
+            "\treturn 0;",
+            "}"
+        ]
+    }
+}
