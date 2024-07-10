@@ -725,7 +725,6 @@ return {
                         {
                             "diagnostics",
                             sources = { "nvim_diagnostic" },
-                            -- symbols = { error = " ", warn = " ", info = " ", hint = " " },
                         },
                     },
                     lualine_c = {
@@ -734,24 +733,39 @@ return {
                     lualine_x = {
                         { "encoding", fmt = string.upper, icon = "" },
                         { "fileformat", icons_enabled = true, symbols = { unix = "", dos = "", mac = "" } },
-                        "filetype",
-                    },
-                    lualine_y = {
                         {
-                            "progress",
-                            fmt = function(str)
-                                return str:lower()
+                            "filetype",
+                        },
+                        {
+                            -- Lsp server name .
+                            function()
+                                local msg = "No Active Lsp"
+                                local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+                                local clients = vim.lsp.get_active_clients()
+                                if next(clients) == nil then
+                                    return msg
+                                end
+                                for _, client in ipairs(clients) do
+                                    local filetypes = client.config.filetypes
+                                    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                                        return client.name
+                                    end
+                                end
+                                return msg
                             end,
-                            icon = "",
+                             icon = ' LSP:',
                         },
                     },
-                    lualine_z = {
+                    lualine_y = {
                         {
                             "location",
                             fmt = function(str)
                                 return str:lower()
                             end,
+                            icon = "",
                         },
+                    },
+                    lualine_z = {
                         {
                             function()
                                 return " " .. os.date("%H:%M")
@@ -813,7 +827,6 @@ return {
         "echasnovski/mini.indentscope",
         event = { "BufReadPost", "BufWritePost", "BufNewFile" },
         opts = {
-            -- symbol = "▏",
             symbol = "│",
             options = { try_as_border = true },
         },
