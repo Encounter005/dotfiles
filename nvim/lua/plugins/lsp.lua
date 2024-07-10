@@ -54,7 +54,7 @@ return {
                         "bashls",
                         "jsonls",
                         "clangd",
-                        "cmake",
+                        "neocmake",
                         "marksman",
                         "yamlls",
                         "jdtls",
