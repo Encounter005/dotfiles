@@ -16,7 +16,7 @@ return {
         opts = {
             modes = {
                 search = {
-                    enabled = true,
+                    enabled = false,
                     highlight =  {
                         backdrop = true,
                     }
@@ -36,14 +36,14 @@ return {
                 end,
                 desc = "Flash",
             },
-            {
-                "S",
-                mode = { "n", "x", "o" },
-                function()
-                    require("flash").treesitter()
-                end,
-                desc = "Flash Treesitter",
-            },
+            -- {
+            --     "S",
+            --     mode = { "n", "x", "o" },
+            --     function()
+            --         require("flash").treesitter()
+            --     end,
+            --     desc = "Flash Treesitter",
+            -- },
             {
                 "r",
                 mode = "o",
@@ -362,9 +362,8 @@ return {
                 c = {
                     name = "CMake",
                     g = { "<cmd>CMakeGenerate<cr>", "Create Project" },
-                    b = { "<cmd>CMakeBuild<cr>", "Build Project" },
+                    b = { "<cmd>CMakeQuickBuild<cr>", "Build Project" },
                     r = { "<cmd>CMakeRun<cr>", "Run Project" },
-                    t = { "<cmd>CMakeRunTest<cr>", "Test Project" },
                 },
                 C = {
                     name = "CompetiTest",
@@ -393,8 +392,7 @@ return {
                 t = {
                     name = "Trouble",
                     t = { "<cmd>Trouble<cr>", "ToggleTrouble" },
-                    d = { "<cmd>Trouble document_diagnostics<cr>", "Document Diagnostics" },
-                    w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
+                    d = { "<cmd>Trouble diagnostics<cr>", "Diagnostics" },
                     q = { "<cmd>Trouble quickfix<cr>", "Quick Fix" },
                     c = { "<cmd>TodoTrouble<cr>", "Todo-comment" },
                 },
