@@ -309,6 +309,7 @@ return {
                 ["a"] = { "<cmd>Alpha<cr>", "Welcome" },
                 ["r"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
                 ["p"] = { "<cmd>Lazy<cr>", "Plugins" },
+                ["d"] = { "<cmd>bdelete<cr>", "Close Current Buffer" },
                 -- ["b"] = {
                 --   "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
                 --   "Buffers",
@@ -372,7 +373,7 @@ return {
                     r = { "<cmd>CompetiTest run<CR>", "Run Test cases" },
                 },
 
-                d = {
+                D = {
                     name = "Debug",
                     t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
                     b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
