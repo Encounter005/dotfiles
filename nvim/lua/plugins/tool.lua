@@ -438,7 +438,7 @@ return {
                     a = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
                     c = { "<cmd>Lspsaga incoming_calls ++normal<CR>", "Callhierarchy" },
                     d = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
-                    h = { "<cmd>DocsViewToggle<CR>", "Hover" },
+                    h = { "<cmd>Lspsaga hover_doc ++keep<CR>", "Hover" },
                     f = { "<cmd>GuardFmt<CR>", "Format" },
                     w = { "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics" },
                     i = { "<cmd>LspInfo<cr>", "Info" },
