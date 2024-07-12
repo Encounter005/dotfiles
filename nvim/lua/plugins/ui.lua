@@ -696,6 +696,7 @@ return {
                     theme = "auto",
                     component_separators = { left = "", right = "" },
                     section_separators = { left = "", right = "" },
+                    -- section_separators = { right = "", left = "" },
                     disabled_filetypes = {
                         "help",
                         "alpha",
@@ -753,7 +754,7 @@ return {
                                 end
                                 return msg
                             end,
-                             icon = ' LSP:',
+                            icon = " LSP:",
                         },
                     },
                     lualine_y = {
@@ -900,4 +901,5 @@ return {
             },
         },
     },
+
 }
