@@ -1,3 +1,7 @@
+[manager]
+show_hidden = true
+
+
 [opener]
 text = [
     { run = 'nvim "$1" ' , block = true},
