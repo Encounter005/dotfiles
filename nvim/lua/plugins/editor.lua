@@ -5,15 +5,6 @@ return {
         ft = {"markdown", "text", "latex", "latexmk"},
     },
     {
-        "amrbashir/nvim-docs-view",
-        lazy = true,
-        cmd = "DocsViewToggle",
-        opts = {
-            position = "right",
-            width = 40,
-        },
-    },
-    {
 
         "RRethy/vim-illuminate",
         lazy = true,
