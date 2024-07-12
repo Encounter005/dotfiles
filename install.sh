@@ -6,7 +6,7 @@ source=$(pwd)
 target=~/.config/
 target2=~/
 shell_files=".zshrc .tmux.conf .vimrc night-owl.json motd.sh"
-exclude_files="README.md .git install.sh "
+exclude_files="README.md .git install.sh .gitignore "
 
 Link() {
     if [ -L "$3/$1" ]; then
