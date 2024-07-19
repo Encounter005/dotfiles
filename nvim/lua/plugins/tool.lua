@@ -17,9 +17,9 @@ return {
             modes = {
                 search = {
                     enabled = false,
-                    highlight =  {
+                    highlight = {
                         backdrop = true,
-                    }
+                    },
                 },
                 char = {
                     jump_labels = true,
@@ -140,7 +140,6 @@ return {
                 telescope.load_extension("ui-select"),
                 telescope.load_extension("live_grep_args"),
                 telescope.load_extension("notify"),
-                telescope.load_extension("aerial"),
             })
         end,
     },
@@ -331,10 +330,11 @@ return {
                     name = "Support",
                     t = { "<cmd>TranslateW<cr>", "Translate" },
                     p = { "<cmd>Printf<CR>", "Print" },
-                    o = { "<cmd>AerialToggle!<CR>", "Outline" },
+                    o = { "<cmd>Outline<CR>", "Outline" },
                     s = { "<cmd>BrowseInputSearch<cr>", "WebSearch" },
                     b = { "<cmd>BrowseBookmarks<cr>", "BookMarkSearch" },
                     w = { "<cmd>Pantran<CR>", "Sentences" },
+                    r = { "<cmd>GrugFar<CR>", "Replace" },
                 },
 
                 m = {
@@ -425,13 +425,6 @@ return {
                     d = { "<cmd>Gitsigns diffthis HEAD<cr>", "Diff" },
                     L = { "<cmd>LazyGit<cr>", "Open LazyGit" },
                 },
-                R = {
-                    name = "Spectre",
-                    o = { "<cmd>lua require('spectre').open()<cr>", "Spectre Open" },
-                    w = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Spectre in Visual Word" },
-                    v = { "<esc><cmd>lua require('spectre').open_visual()<CR>", "Spectre in Visual" },
-                    f = { "viw<cmd>lua require('spectre').open_file_search()<CR>", "Spectre in File" },
-                },
 
                 l = {
                     name = "LSP",
@@ -439,7 +432,6 @@ return {
                     c = { "<cmd>Lspsaga incoming_calls ++normal<CR>", "Callhierarchy" },
                     d = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
                     h = { "<cmd>Lspsaga hover_doc ++keep<CR>", "Hover" },
-                    f = { "<cmd>GuardFmt<CR>", "Format" },
                     w = { "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics" },
                     i = { "<cmd>LspInfo<cr>", "Info" },
                     j = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next Diagnostic" },
@@ -764,7 +756,7 @@ return {
                 delay = 100,
                 ignore_whitespace = false,
             },
-            current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+            current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
             sign_priority = 6,
             update_debounce = 100,
             status_formatter = nil, -- Use default
@@ -975,11 +967,18 @@ return {
         end,
     },
 
-    { -- Search and Replace files
-        "nvim-pack/nvim-spectre",
-        build = false,
-        cmd = "Spectre",
-        opts = { open_cmd = "noswapfile vnew" },
+    -- { -- Search and Replace files
+    --     "nvim-pack/nvim-spectre",
+    --     build = false,
+    --     cmd = "Spectre",
+    --     opts = { open_cmd = "noswapfile vnew" },
+    -- },
+    
+    {
+        "MagicDuck/grug-far.nvim",
+        config = function()
+            require("grug-far").setup({})
+        end,
     },
 
     { -- terminal
@@ -991,41 +990,13 @@ return {
         end,
     },
 
-    { -- Outline
-        "stevearc/aerial.nvim",
+    { -- outline
+        "hedyhli/outline.nvim",
         lazy = true,
-        event = { "BufReadPost", "BufWritePost", "BufNewFile" },
-        opts = function()
-            local icons = require("config.icons")
-            -- HACK: fix lua's weird choice for `Package` for control
-            -- structures like if/else/for/etc.
-            icons.lua = { Package = icons.Control }
-
-            local opts = {
-                attach_mode = "global",
-                -- backends = { "lsp", "treesitter", "markdown", "man" },
-                show_guides = true,
-                layout = {
-                    min_width = 30,
-                    resize_to_content = false,
-                    win_opts = {
-                        winhl = "Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB",
-                        signcolumn = "yes",
-                        statuscolumn = " ",
-                    },
-                },
-                icons = icons,
-                
-                -- stylua: ignore
-                guides = {
-                  mid_item   = "├╴",
-                  last_item  = "└╴",
-                  nested_top = "│ ",
-                  whitespace = "  ",
-                },
-            }
-            return opts
-        end,
+        cmd = { "Outline", "OutlineOpen" },
+        opts = {
+            -- Your setup opts here
+        },
     },
 
     { -- Translator
