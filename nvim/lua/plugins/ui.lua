@@ -107,51 +107,6 @@ return {
         event = { "BufEnter" },
     },
 
-    -- { -- bufferline
-    --     "romgrk/barbar.nvim",
-    --     init = function()
-    --         vim.g.barbar_auto_setup = false
-    --     end,
-    --     config = function()
-    --         local barbar = require("barbar")
-    --         local icons = require("config.icons")
-    --         barbar.setup({
-    --             -- WARN: do not copy everything below into your config!
-    --             --       It is just an example of what configuration options there are.
-    --             --       The defaults are suitable for most people.
-    --
-    --             icons = {
-    --                 -- Configure the base icons on the bufferline.
-    --                 -- Valid options to display the buffer index and -number are `true`, 'superscript' and 'subscript'
-    --                 buffer_index = true,
-    --                 buffer_number = false,
-    --                 button = "",
-    --                 -- Enables / disables diagnostic symbols
-    --                 diagnostics = {
-    --                     [vim.diagnostic.severity.ERROR] = { enabled = true, icon = icons.diagnostics.Error },
-    --                     [vim.diagnostic.severity.WARN] = { enabled = true, icon = icons.diagnostics.Warn },
-    --                     [vim.diagnostic.severity.INFO] = { enabled = false },
-    --                     [vim.diagnostic.severity.HINT] = { enabled = true },
-    --                 },
-    --                 gitsigns = {
-    --                     added = { enabled = true, icon = icons.git.added },
-    --                     changed = { enabled = true, icon = icons.git.modified },
-    --                     deleted = { enabled = true, icon = icons.git.removed },
-    --                 },
-    --                 filetype = {
-    --                     -- Sets the icon's highlight group.
-    --                     -- If false, will use nvim-web-devicons colors
-    --                     custom_colors = false,
-    --
-    --                     -- Requires `nvim-web-devicons` if `true`
-    --                     enabled = true,
-    --                 },
-    --                 separator = { left = "", right = "" },
-    --             },
-    --         })
-    --     end,
-    -- },
-
     {
         "nvimdev/dashboard-nvim",
         event = "VimEnter",
@@ -690,6 +645,7 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         config = function()
+            local icons = require("config.icons")
             require("lualine").setup({
                 options = {
                     icons_enabled = true,
@@ -699,16 +655,10 @@ return {
                     -- section_separators = { right = "", left = "" },
                     disabled_filetypes = {
                         "help",
-                        "alpha",
                         "dashboard",
-                        "neo-tree",
                         "Trouble",
                         "trouble",
-                        "lazy",
-                        "mason",
                         "notify",
-                        "toggleterm",
-                        "lazyterm",
                     },
                     always_divide_middle = true,
                 },
@@ -718,24 +668,48 @@ return {
                     },
                     lualine_b = {
                         "branch",
-                        {
-                            "diff",
-                            colored = true,
-                            symbols = { added = " ", modified = " ", removed = " " },
-                        },
-                        {
-                            "diagnostics",
-                            sources = { "nvim_diagnostic" },
-                        },
                     },
                     lualine_c = {
-                        { "filename", file_status = true, path = 1 },
-                    },
-                    lualine_x = {
-                        { "encoding", fmt = string.upper, icon = "" },
-                        { "fileformat", icons_enabled = true, symbols = { unix = "", dos = "", mac = "" } },
+                        {
+                            "diagnostics",
+                            symbols = {
+                                error = icons.diagnostics.Error,
+                                warn = icons.diagnostics.Warn,
+                                info = icons.diagnostics.Info,
+                                hint = icons.diagnostics.Hint,
+                            },
+                        },
                         {
                             "filetype",
+                            icon_only = true,
+                            separator = "",
+                            padding = { left = 1, right = 0 },
+                        },
+
+                        {
+                            "filename",
+                            path = 1,
+                            file_status = true,
+                            padding = { left = 0, right = 0 },
+                        },
+                    },
+                    lualine_x = {
+                        {
+                            function()
+                                return require("noice").api.status.command.get()
+                            end,
+                            cond = function()
+                                return package.loaded["noice"] and require("noice").api.status.command.has()
+                            end,
+                        },
+
+                        {
+                            function()
+                                return require("noice").api.status.mode.get()
+                            end,
+                            cond = function()
+                                return package.loaded["noice"] and require("noice").api.status.mode.has()
+                            end,
                         },
                         {
                             -- Lsp server name .
@@ -756,14 +730,38 @@ return {
                             end,
                             icon = " LSP:",
                         },
+                        {
+                            "diff",
+                            symbols = {
+                                added = icons.git.added,
+                                modified = icons.git.modified,
+                                removed = icons.git.removed,
+                            },
+                            source = function()
+                                local gitsigns = vim.b.gitsigns_status_dict
+                                if gitsigns then
+                                    return {
+                                        added = gitsigns.added,
+                                        removed = gitsigns.removed,
+                                        modified = gitsigns.changed,
+                                    }
+                                end
+                            end,
+                        },
                     },
                     lualine_y = {
                         {
+                            "progresss",
+                            separator = " ",
+                            padding = { left = 1, right = 0 },
+                        },
+                        {
                             "location",
+                            padding = { left = 1, right = 1 },
+                            icon = "",
                             fmt = function(str)
                                 return str:lower()
                             end,
-                            icon = "",
                         },
                     },
                     lualine_z = {
@@ -774,23 +772,16 @@ return {
                         },
                     },
                 },
-                inactive_sections = {
-                    lualine_a = {},
-                    lualine_b = {},
-                    lualine_c = {
-                        { "filename", file_status = true, path = 1 },
-                    },
-                    lualine_x = {
-                        {
-                            "location",
-                            fmt = function(str)
-                                return str:lower()
-                            end,
-                            icon = "",
-                        },
-                    },
-                    lualine_y = {},
-                    lualine_z = {},
+                extensions = {
+                    "neo-tree",
+                    "toggleterm",
+                    "symbols-outline",
+                    "quickfix",
+                    "lazy",
+                    "man",
+                    "mason",
+                    "trouble",
+                    "nvim-dap-ui",
                 },
             })
         end,
@@ -901,5 +892,4 @@ return {
             },
         },
     },
-
 }
