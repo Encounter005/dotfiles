@@ -36,7 +36,7 @@ mainbox {
     orientation:                 horizontal;
     children:                    [  "inputbar" , "listbox" ];
     background-color:            transparent;
-    background-image:            url("~/Pictures/t3-blur.png", height);
+    background-image:            url("~/.config/rofi/t3-blur.png", height);
 }
 
 
@@ -46,7 +46,7 @@ inputbar {
     width:                       25%;
     children:                    [ "mode-switcher" , "entry" ];
     background-color:            transparent;
-    background-image:            url("~/Pictures/t3.png", height);
+    background-image:            url("~/.config/rofi/t3.png", height);
 }
 entry {
     enabled:                     false;
