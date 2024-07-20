@@ -3,25 +3,33 @@ show_hidden = true
 
 
 [opener]
-text = [
-    { run = 'nvim "$1" ' , block = true},
+edit = [
+	{ run = 'nvim "$@"', block = true },
 ]
-
-archive = [
-    { run = 'unar "$1"',  block = true}
-
+play = [
+	{ run = 'mpv "$@"', orphan = true, for = "unix" },
 ]
-
+open = [
+	{ run = 'xdg-open "$@"', desc = "Open" },
+]
+image = [
+  { run = 'imv "$@"', desc = "Image" }
+]
 
 [open]
 rules = [
-	{ mime = "text/*", use = "text" },
-
-	# { mime = "application/json", use = "text" },
-	{ name = "*.json", use = "text" },
+	{ mime = "text/*", use = "edit" },
+	{ mime = "video/*", use = "play" },
+  #{ mime = "application/json", use = "text" },
 
 	# Multiple openers for a single rule
 	{ name = "*.html", use = [ "browser", "text" ] },
+  { name = "*.png", use = [ "image" ] },
+  { name = "*.jpg", use = [ "image" ] },
+  { name = "*.webp", use = [ "image" ] },
+
+  { name = "*", use = ["open"] }
+
 ]
 
 
