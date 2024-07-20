@@ -247,8 +247,8 @@ return {
                         css = { "prettier" },
                         json = { "prettier" },
                         jsonc = { "prettier" },
-                        java = { "google-java-format" },
                         yaml = { "prettier" },
+                        java = { "google-java-format" },
                     },
                     -- The options you set here will be merged with the builtin formatters.
                     -- You can also define any custom formatters here.
