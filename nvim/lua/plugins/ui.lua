@@ -43,14 +43,14 @@ return {
             notify.setup({
                 stages = "slide",
                 on_open = nil,
-                timeout = 3000,
+                timeout = 300,
                 max_width = function()
                     return math.floor(vim.o.columns * 0.75)
                 end,
                 max_height = function()
                     return math.floor(vim.o.lines * 0.75)
                 end,
-                render = "simple",
+                render = "compact",
             })
         end,
     },
@@ -139,15 +139,16 @@ return {
                     },
                     -- stylua: ignore
                     center = {
-                        { action = "Telescope find_files", desc = " Find file", icon = " ", key = "f" },
-                        { action = "ene | startinsert", desc = " New file", icon = " ", key = "n" },
-                        { action = "Telescope oldfiles", desc = " Recent files", icon = " ", key = "r" },
-                        { action = "Telescope live_grep", desc = " Find text", icon = " ", key = "t" },
-                        { action = 'lua require("persistence").load()', desc = " Restore Session", icon = " ", key = "S" },
-                        { action = "Telescope colorscheme", desc = " Change colorscheme", icon = " ", key = "s" },
-                        { action = ":e ~/.config/nvim/init.lua", desc = " Configure", icon = " ", key = "c" },
-                        { action = "Lazy", desc = " Lazy", icon = "󰒲 ", key = "p" },
-                        { action = "qa", desc = " Quit", icon = " ", key = "q" },
+                        { action = "Telescope find_files",              desc = " Find file",          icon = " ", key = "f" },
+                        { action = "Neotree toggle",                    desc = " Open Explorer",      icon = " ", key = "F" },
+                        { action = "ene | startinsert",                 desc = " New file",           icon = " ", key = "n" },
+                        { action = "Telescope oldfiles",                desc = " Recent files",       icon = " ", key = "r" },
+                        { action = "Telescope live_grep",               desc = " Find text",          icon = " ", key = "t" },
+                        { action = 'lua require("persistence").load()', desc = " Restore Session",    icon = " ", key = "S" },
+                        { action = "Telescope colorscheme",             desc = " Change colorscheme", icon = " ", key = "s" },
+                        { action = ":e ~/.config/nvim/init.lua",        desc = " Configure",          icon = " ", key = "c" },
+                        { action = "Lazy",                              desc = " Lazy",               icon = "󰒲 ", key = "p" },
+                        { action = "qa",                                desc = " Quit",               icon = " ", key = "q" },
                     },
                     footer = function()
                         local stats = require("lazy").stats()
