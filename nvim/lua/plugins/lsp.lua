@@ -39,6 +39,16 @@ return {
                     require("jdtls").start_or_attach(opts)
                 end,
             },
+
+            {
+                "dgagn/diagflow.nvim",
+                event = "LspAttach",
+                opts = {
+                    toggle_event = { "InsertEnter" }, -- if InsertEnter, can toggle the diagnostics on inserts
+                    padding_top = 5,
+                    placement = "top",
+                },
+            },
             {
                 "williamboman/mason.nvim",
                 cmd = "Mason",
@@ -249,6 +259,7 @@ return {
                         jsonc = { "prettier" },
                         yaml = { "prettier" },
                         java = { "google-java-format" },
+                        cmake = { "gersemi" },
                     },
                     -- The options you set here will be merged with the builtin formatters.
                     -- You can also define any custom formatters here.
