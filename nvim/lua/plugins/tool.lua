@@ -313,7 +313,7 @@ return {
                     { "<leader>DU", "<cmd>lua require'dapui'.toggle()<CR>",              desc = "Toggle UI" },
 
                     --Trouble
-                    { "<leader>t",  group = "Trouble" , icon = '󰋗 ' },
+                    { "<leader>t",  group = "Trouble" , icon = '󱏘 ' },
                     { "<leader>tt", "<cmd>Trouble<CR>",                                  desc = "ToggleTrouble" },
                     { "<leader>td", "<cmd>Trouble diagnostics<CR>",                      desc = "Diagnostics" },
                     { "<leader>tq", "<cmd>Trouble quickfix<CR>",                         desc = "Quick Fix" },
@@ -339,13 +339,13 @@ return {
 
                 {
                     mode = { "n" },
-                    { "<leader>a", "<cmd>Alpha<CR>",              desc = "Welcome" , icon = '󱠞 ' },
+                    { "<leader>a", "<cmd>Alpha<CR>",              desc = "Welcome",              icon = '󱠞 ' },
                     { "<leader>r", "<cmd>Telescope oldfiles<CR>", desc = "Open Recent File" },
-                    { "<leader>p", "<cmd>Lazy<CR>",               desc = "Plugins", icon = '󰒲 ' },
+                    { "<leader>p", "<cmd>Lazy<CR>",               desc = "Plugins",              icon = '󰒲 ' },
                     { "<leader>d", "<cmd>bdelete<CR>",            desc = "Close Current Buffer", icon = '󰛉 '},
-                    { "<leader>e", "<cmd>Neotree toggle<CR>",     desc = "Explorer", icon = " " },
+                    { "<leader>e", "<cmd>Neotree toggle<CR>",     desc = "Explorer",             icon = " " },
                     { "<leader>q", "<cmd>q!<CR>",                 desc = "Quit" },
-                    { "<leader>h", "<cmd>nohlsearch<CR>",         desc = "No Highlight", icon = " " },
+                    { "<leader>h", "<cmd>nohlsearch<CR>",         desc = "No Highlight",         icon = " " },
                 },
 
                 {
