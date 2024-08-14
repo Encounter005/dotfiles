@@ -17,9 +17,11 @@ export FZF_DEFAULT_OPTS="--height 90% --layout=reverse --preview '(highlight -O 
 export LANG="zh_CN.UTF-8"
 export LANGUAGE="zh_CN.UTF-8"
 export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
+export G_SLICE=always-malloc
 export MAVEN_HOME=/usr/local/maven
 export PATH=$MAVEN_HOME/bin:$PATH
 export OLLAMA_HOST=0.0.0.0
+export INFERENCE_RAM=10
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -163,8 +165,8 @@ alias cls='clear'
 alias run='./run.sh'
 alias ai='aichat'
 alias n='neofetch'
-alias ra='yazi'
-alias ya='yazi'
+alias ra='ranger'
+alias load='tmux at -t'
 alias yay='paru'
 alias q='exit'
 alias lazy='lazygit'
@@ -187,4 +189,4 @@ alias mem='./checkmemory.sh'
 alias cat='bat'
 
 
-eval "$(oh-my-posh init zsh --config ~/night-owl.json)"
+eval "$(oh-my-posh init zsh --config ~/clean-detailed.omp.json)"
