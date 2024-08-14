@@ -41,15 +41,6 @@ return {
             },
 
             {
-                "dgagn/diagflow.nvim",
-                event = "LspAttach",
-                opts = {
-                    toggle_event = { "InsertEnter" }, -- if InsertEnter, can toggle the diagnostics on inserts
-                    padding_top = 5,
-                    placement = "top",
-                },
-            },
-            {
                 "williamboman/mason.nvim",
                 cmd = "Mason",
                 build = ":MasonUpdate",

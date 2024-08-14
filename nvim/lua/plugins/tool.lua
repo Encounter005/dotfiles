@@ -288,6 +288,7 @@ return {
                     { "<leader>c",  group = "CMake", icon = ' ' },
                     { "<leader>cg", "<cmd>CMakeGenerate<CR>",                            desc = "Create Project" },
                     { "<leader>cb", "<cmd>CMakeQuickBuild<CR>",                          desc = "Build Project" },
+                    { "<leader>cs", "<cmd>CMakeSelectLaunchTarget<CR>",                  desc = "Select Target" },
                     { "<leader>cr", "<cmd>CMakeRun<CR>",                                 desc = "Run Project" },
 
                     --CompetiTest
@@ -313,7 +314,7 @@ return {
                     { "<leader>DU", "<cmd>lua require'dapui'.toggle()<CR>",              desc = "Toggle UI" },
 
                     --Trouble
-                    { "<leader>t",  group = "Trouble" , icon = '󱏘 ' },
+                    { "<leader>t",  group = "Trouble" , icon = '󰋗 ' },
                     { "<leader>tt", "<cmd>Trouble<CR>",                                  desc = "ToggleTrouble" },
                     { "<leader>td", "<cmd>Trouble diagnostics<CR>",                      desc = "Diagnostics" },
                     { "<leader>tq", "<cmd>Trouble quickfix<CR>",                         desc = "Quick Fix" },
@@ -440,7 +441,7 @@ return {
                     quickfix = {
                         show = "always", -- "always", "only_on_error"
                         position = "belowright", -- "vertical", "horizontal", "leftabove", "aboveleft", "rightbelow", "belowright", "topleft", "botright", use `:h vertical` for example to see help on them
-                        size = 10,
+                        size = 20,
                         encoding = "utf-8", -- if encoding is not "utf-8", it will be converted to "utf-8" using `vim.fn.iconv`
                         auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
                     },
@@ -487,7 +488,7 @@ return {
                     quickfix = {
                         show = "always", -- "always", "only_on_error"
                         position = "belowright", -- "bottom", "top"
-                        size = 10,
+                        size = 20,
                         encoding = "utf-8",
                         auto_close_when_success = true, -- typically, you can use it with the "always" option; it will auto-close the quickfix buffer if the execution is successful.
                     },
