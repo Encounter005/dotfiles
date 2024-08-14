@@ -130,7 +130,7 @@
         "interval": 10,
         "exec": "python ~/.config/waybar/modules/wttr.py",
         "return-type": "json",
-        "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/debee071c5d709cfffde244a726e13df5ae61187d4b6e1de5419c59dd7f524b6"
+        "on-click": "xdg-open https://weather.com/en-IN/weather/today/l/ce509ae7631332c2d7cb83d42c6af4755a83ca62adcb3f95774c0392addd4f19"
     },
     "hyprland/workspaces": {
         "disable-scroll": false,
