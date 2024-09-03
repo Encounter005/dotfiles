@@ -64,3 +64,7 @@ vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
+
+-- Spell
+-- vim.opt.spell = true
+-- vim.opt.spelllang = { "en_us" }

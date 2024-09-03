@@ -87,37 +87,40 @@ return {
         event = "BufReadPre",
     },
 
-    { -- Markdown Preview
+    -- { -- MarkdownPreview
+    --     "iamcco/markdown-preview.nvim",
+    --     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    --     build = "cd app && yarn install",
+    --     init = function()
+    --         vim.g.mkdp_filetypes = { "markdown" }
+    --     end,
+    --     ft = { "markdown" },
+    -- },
+
+    {
         "toppair/peek.nvim",
-        ft = { "markdown" },
         event = { "VeryLazy" },
         build = "deno task --quiet build:fast",
         config = function()
-            require("peek").setup()
+            require("peek").setup({
+                app = { "chromium", "--new-window" },
+            })
             vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
             vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
         end,
     },
-
     {
         "norcalli/nvim-colorizer.lua",
         lazy = true,
         event = "User Fileopened",
     },
+
     {
-        "echasnovski/mini.pairs",
-        event = "VeryLazy",
+        "altermo/ultimate-autopair.nvim",
+        event = { "InsertEnter", "CmdlineEnter" },
+        branch = "v0.6", --recommended as each new version will have breaking changes
         opts = {
-            modes = { insert = true, command = true, terminal = false },
-            -- skip autopair when next character is one of these
-            skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-            -- skip autopair when the cursor is inside these treesitter nodes
-            skip_ts = { "string" },
-            -- skip autopair when next character is closing pair
-            -- and there are more closing pairs than opening pairs
-            skip_unbalanced = true,
-            -- better deal with markdown code blocks
-            markdown = true,
+            --Config goes here
         },
     },
     -- treesitter

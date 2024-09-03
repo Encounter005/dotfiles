@@ -9,17 +9,18 @@ return {
                 ft = "lua",
                 lazy = true,
             },
-            {
-                "simrat39/rust-tools.nvim",
-                ft = "rust",
-                lazy = true,
-            },
 
             --Rust
             {
                 "rust-lang/rust.vim",
                 lazy = true,
                 ft = "rust",
+            },
+            {
+                "mrcjkb/rustaceanvim",
+                version = "^5", -- Recommended
+                lazy = false, -- This plugin is already lazy
+                ft = "rust"
             },
 
             { -- Java Support
@@ -52,6 +53,7 @@ return {
                         "ltex",
                         "stimulus_ls",
                         "pylsp",
+                        -- "pyright",
                         "bashls",
                         "jsonls",
                         "clangd",
@@ -285,7 +287,6 @@ return {
                         -- ['_'] = { 'fallback linter' },
                         ["*"] = { "codespell" },
                         cpp = { "cpplint" },
-                        markdown = { "markdownlint" },
                         python = { "pylint" },
                     },
                     -- LazyVim extension to easily override linter options

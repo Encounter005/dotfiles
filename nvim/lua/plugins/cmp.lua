@@ -113,7 +113,16 @@ return {
                     { name = "nvim_lsp_signature_help" },
                     { name = "codeium" },
                     { name = "nvim_lua" },
-                    { name = "spell" },
+                    {
+                        name = "spell",
+                        option = {
+                            keep_all_entries = false,
+                            enable_in_context = function()
+                                return true
+                            end,
+                            preselect_correct_word = true,
+                        },
+                    },
                     { name = "calc" },
                     { name = "treesitter" },
                     { name = "crates" },
