@@ -7,9 +7,17 @@ fi
 
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/bin:~/.local/bin:$PATH
-
+export IDEA_JDK=/usr/lib/jvm/jre-jetbrains
+export PHPSTORM_JDK=/usr/lib/jvm/jre-jetbrains
+export WEBIDE_JDK=/usr/lib/jvm/jre-jetbrains
+export WEBSTORM_JDK=/usr/lib/jvm/jre-jetbrains
+export PYCHARM_JDK=/usr/lib/jvm/jre-jetbrains
+export RUBYMINE_JDK=/usr/lib/jvm/jre-jetbrains
+export CL_JDK=/usr/lib/jvm/jre-jetbrains
+export DATAGRIP_JDK=/usr/lib/jvm/jre-jetbrains
+export GOLAND_JDK=/usr/lib/jvm/jre-jetbrains
+export STUDIO_JDK=/usr/lib/jvm/jre-jetbrains
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="nvim"
@@ -22,6 +30,7 @@ export MAVEN_HOME=/usr/local/maven
 export PATH=$MAVEN_HOME/bin:$PATH
 export OLLAMA_HOST=0.0.0.0
 export INFERENCE_RAM=10
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -160,14 +169,14 @@ source ~/motd.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
+alias pac='yay -S $(yayfzf)'
+alias ins='bash ~/install_yay.sh'
 alias cls='clear'
 alias run='./run.sh'
 alias ai='aichat'
 alias n='neofetch'
 alias ra='ranger'
 alias load='tmux at -t'
-alias yay='paru'
 alias q='exit'
 alias lazy='lazygit'
 alias tree='lsd --tree'
@@ -179,14 +188,41 @@ alias ping='gping'
 alias e='exa --icons'
 alias tt='tldr'
 alias nv='nvim'
+alias vim='nvim'
 alias t='fanyi'
-alias vim='gvim'
 alias scr='scrcpy --max-size 1920 --max-fps 120'
 alias e='nvim $(fzf)'
 alias cf='$(find * -type d | fzf)'
 alias ps='kitty +kitten icat' 
 alias mem='./checkmemory.sh'
 alias cat='bat'
-
-
+alias nvsql="nvim '+SQLua'"
 eval "$(oh-my-posh init zsh --config ~/clean-detailed.omp.json)"
+
+
+# export PYTHONPATH=$PYTHONPATH:/usr/lib/python/site-packages
+# export PYTHONPATH=$PYTHONPATH:/usr/lib/python3.12
+# export PATH="/usr/local/bin/:$PATH"
+# export PATH="/usr/bin/:$PATH"
+# export PATH=" $HOME/.cargo/bin/:$PATH"
+# export C_INCLUDE_PATH=/usr/local/include:$C_INCLUDE_PATH
+# export CPLUS_INCLUDE_PATH=/usr/local/include:$CPLUS_INCLUDE_PATH
+
+
+. "$HOME/.cargo/env"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/encounter/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/encounter/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/encounter/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/encounter/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

@@ -8,7 +8,7 @@ return {
             "hrsh7th/cmp-path", -- path completions
             "hrsh7th/cmp-cmdline", -- cmdline completions
             "saadparwaiz1/cmp_luasnip", -- snippet completions
-            "lukas-reineke/cmp-under-comparator", -- better sorting
+            -- "lukas-reineke/cmp-under-comparator", -- better sorting
             "hrsh7th/cmp-calc",
             "micangl/cmp-vimtex",
             "hrsh7th/cmp-nvim-lsp-signature-help",
@@ -130,18 +130,18 @@ return {
                     { name = "buffer" },
                     { name = "vimtex" },
                 },
-                sorting = {
-                    comparators = {
-                        cmp.config.compare.offest,
-                        cmp.config.compare.exact,
-                        cmp.config.compare.score,
-                        require("cmp-under-comparator").under,
-                        cmp.config.compare.kind,
-                        cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
-                    },
-                },
+                -- sorting = {
+                --     comparators = {
+                --         cmp.config.compare.offest,
+                --         cmp.config.compare.exact,
+                --         cmp.config.compare.score,
+                --         require("cmp-under-comparator").under,
+                --         cmp.config.compare.kind,
+                --         cmp.config.compare.sort_text,
+                --         cmp.config.compare.length,
+                --         cmp.config.compare.order,
+                --     },
+                -- },
                 mapping = {
                     ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
                     ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),

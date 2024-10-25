@@ -6,7 +6,7 @@ target_dir="$HOME/.config"
 shell_target_dir="$HOME"
 
 # Define arrays for shell files and exclude files
-declare -a shell_files=(".zshrc" ".tmux.conf" ".vimrc" "night-owl.json" "motd.sh" "clean-detailed.omp.json")
+declare -a shell_files=(".zshrc" ".tmux.conf" ".vimrc" "night-owl.json" "motd.sh" "clean-detailed.omp.json" "install_yay.sh")
 declare -a exclude_files=("README.md" ".git" "install.sh" ".gitignore")
 
 # Function to create a symbolic link if it does not exist

@@ -6,7 +6,7 @@ if [ ! -f /etc/arch-release ] ; then
 fi
 
 # Check for updates
-aur=$(yay -Qua | wc -l)
+aur=$(paru -Qua | wc -l)
 ofc=$(pacman -Qu | wc -l)
 
 

@@ -26,7 +26,7 @@ export csMode=`gsettings get org.gnome.desktop.interface color-scheme | sed "s/'
 export BtnCol=`[ "$csMode" == "dark" ] && ( echo "black" ) || ( echo "white" )`
 export BtnBkg=`[ "$csMode" == "dark" ] && ( echo "color" ) || ( echo "bg" )`
 export WindBg=`[ "$csMode" == "dark" ] && ( echo "rgba(0,0,0,0.5)" ) || ( echo "rgba(255,255,255,0.6)" )`
-export wbarTheme="$HOME/.config/waybar/themes/${gtkThm}.css"
+export wbarTheme="$HOME/.config/waybar/themes/Tokyo-Night.css"
 
 # eval hypr border radius
 hyprTheme="$HOME/.config/hypr/themes/${gtkThm}.conf"

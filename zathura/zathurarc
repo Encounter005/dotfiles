@@ -17,41 +17,41 @@ set window-height 760
 #默认宽度
 set window-width 1300
 
-#Color Scheme
-set default-fg                "#CAD3F5"
-set default-bg 			          "#24273A"
-
-set completion-bg		          "#363A4F"
-set completion-fg		          "#CAD3F5"
-set completion-highlight-bg	  "#575268"
-set completion-highlight-fg	  "#CAD3F5"
-set completion-group-bg		    "#363A4F"
-set completion-group-fg		    "#8AADF4"
-
-set statusbar-fg		          "#CAD3F5"
-set statusbar-bg		          "#363A4F"
-
-set notification-bg		        "#363A4F"
-set notification-fg		        "#CAD3F5"
-set notification-error-bg	    "#363A4F"
-set notification-error-fg	    "#ED8796"
-set notification-warning-bg	  "#363A4F"
-set notification-warning-fg	  "#FAE3B0"
-
-set inputbar-fg			          "#CAD3F5"
-set inputbar-bg 		          "#363A4F"
-
-set recolor-lightcolor		    "#24273A"
-set recolor-darkcolor		      "#CAD3F5"
-
-set index-fg			            "#CAD3F5"
-set index-bg			            "#24273A"
-set index-active-fg		        "#CAD3F5"
-set index-active-bg		        "#363A4F"
-
-set render-loading-bg		      "#24273A"
-set render-loading-fg		      "#CAD3F5"
-
-set highlight-color		        "#575268"
-set highlight-fg              "#F5BDE6"
-set highlight-active-color	  "#F5BDE6"
+# Tokyonight color theme for Zathura
+# Swaps Foreground for Background to get a light version if the user prefers
+#
+# Tokyonight color theme
+#
+set notification-error-bg "#f7768e"
+set notification-error-fg "#c0caf5"
+set notification-warning-bg "#e0af68"
+set notification-warning-fg "#414868"
+set notification-bg "#24283b"
+set notification-fg "#c0caf5"
+set completion-bg "#24283b"
+set completion-fg "#a9b1d6"
+set completion-group-bg "#24283b"
+set completion-group-fg "#a9b1d6"
+set completion-highlight-bg "#414868"
+set completion-highlight-fg "#c0caf5"
+set index-bg "#24283b"
+set index-fg "#c0caf5"
+set index-active-bg "#414868"
+set index-active-fg "#c0caf5"
+set inputbar-bg "#24283b"
+set inputbar-fg "#c0caf5"
+set statusbar-bg "#24283b"
+set statusbar-fg "#c0caf5"
+set highlight-color "#e0af68"
+set highlight-active-color "#9ece6a"
+set default-bg "#24283b"
+set default-fg "#c0caf5"
+set render-loading true
+set render-loading-fg "#24283b"
+set render-loading-bg "#c0caf5"
+#
+# Recolor mode settings
+# <C-r> to switch modes
+#
+set recolor-lightcolor "#24283b"
+set recolor-darkcolor "#c0caf5"

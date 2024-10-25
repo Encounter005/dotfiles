@@ -225,12 +225,12 @@ return {
                     { "<leader>s", group = "Support", icon = " " },
                     { "<leader>st", "<cmd>TranslateW<CR>", desc = "Translate Word" },
                     { "<leader>ss", "<cmd>BrowseInputSearch<CR>", desc = "Web Search" },
-                    { "<leader>sb", "<cmd>BrowseBookMarks<CR>", desc = "Bookmark Search" },
+                    { "<leader>sb", "<cmd>BrowseBookmarks<CR>", desc = "Bookmark Search" },
                     { "<leader>sr", "<cmd>GrugFar<CR>", desc = "Replace Text" },
 
                     --Markdown
                     { "<leader>m", group = "Markdown", icon = "󰍔 " },
-                    { "<leader>mp", "<cmd>PeekOpen<CR>", desc = "Preview" },
+                    { "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", desc = "Preview" },
                     { "<leader>mc", "<cmd>GenTocGFM<CR>", desc = "Generate a content" },
                     { "<leader>mr", "<cmd>RemoveToc<CR>", desc = "Remove table" },
                     { "<leader>mu", "<cmd>UpdateToc<CR>", desc = "Update content" },
@@ -950,14 +950,6 @@ return {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
         event = "VeryLazy",
-        dependencies = {
-            "roobert/surround-ui.nvim",
-            config = function()
-                require("surround-ui").setup({
-                    root_key = "S",
-                })
-            end,
-        },
         config = function()
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
@@ -1022,6 +1014,28 @@ return {
         config = true,
         opts = {
             rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" },
+        },
+    },
+
+    {
+        "tzachar/highlight-undo.nvim",
+        opts = {
+            duration = 300,
+            undo = {
+                hlgroup = "HighlightUndo",
+                mode = "n",
+                lhs = "u",
+                map = "undo",
+                opts = {},
+            },
+            redo = {
+                hlgroup = "HighlightRedo",
+                mode = "n",
+                lhs = "<C-r>",
+                map = "redo",
+                opts = {},
+            },
+            highlight_for_count = true,
         },
     },
 }

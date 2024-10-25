@@ -58,6 +58,14 @@ return {
     --color scheme
 
     {
+        "vague2k/vague.nvim",
+        config = function()
+            require("vague").setup({
+                -- optional configuration here
+            })
+        end,
+    },
+    {
         "folke/tokyonight.nvim",
         lazy = true,
         event = { "BufEnter" },
