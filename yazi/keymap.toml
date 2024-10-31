@@ -1,0 +1,45 @@
+[[manager.prepend_keymap]]
+on   = "p"
+run  = "plugin --sync smart-paste"
+desc = "Paste into the hovered directory or CWD"
+
+
+[[manager.prepend_keymap]]
+on  = "y"
+run = [ '''
+	shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm
+''', "yank" ]
+
+[[manager.prepend_keymap]]
+on   = "<Right>"
+run  = "plugin --sync smart-enter"
+desc = "Enter the child directory, or open the file"
+
+[[manager.prepend_keymap]]
+on   = "l"
+run  = "plugin --sync smart-enter"
+desc = "Enter the child directory, or open the file"
+
+
+[[manager.prepend_keymap]]
+on   = [ "i" ]
+run = "plugin easyjump"
+desc = "easyjump"
+
+
+[[manager.prepend_keymap]]
+on = ["C"]
+run = "plugin ouch --args=zip"
+desc = "Compress with ouch"
+
+
+[[manager.prepend_keymap]]
+on   = "<C-d>"
+run  = "plugin diff"
+desc = "Diff the selected with the hovered file"
+
+
+[[manager.prepend_keymap]]
+on   = "f"
+run  = "plugin smart-filter"
+desc = "Smart filter"

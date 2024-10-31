@@ -16,6 +16,11 @@ image = [
   { run = 'imv "$@"', desc = "Image" }
 ]
 
+extract = [
+	{ run = 'ouch d -y "%*"', desc = "Extract here with ouch", for = "windows" },
+	{ run = 'ouch d -y "$@"', desc = "Extract here with ouch", for = "unix" },
+]
+
 [open]
 rules = [
 	{ mime = "text/*", use = "edit" },
@@ -36,7 +41,7 @@ rules = [
 [plugin]
 prepend_previewers = [
   # mardown previewer
-  { name = "*.md", exec = "glow" },
+  { name = "*.md", run = "glow" },
 	# Archive previewer
 	{ mime = "application/zip",             run = "ouch" },
 	{ mime = "application/gzip",            run = "ouch" },

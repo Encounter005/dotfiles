@@ -175,7 +175,7 @@ alias cls='clear'
 alias run='./run.sh'
 alias ai='aichat'
 alias n='neofetch'
-alias ra='ranger'
+# alias ra='yazi'
 alias load='tmux at -t'
 alias q='exit'
 alias lazy='lazygit'
@@ -199,6 +199,16 @@ alias cat='bat'
 alias nvsql="nvim '+SQLua'"
 eval "$(oh-my-posh init zsh --config ~/clean-detailed.omp.json)"
 
+
+
+function ra() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 
 # export PYTHONPATH=$PYTHONPATH:/usr/lib/python/site-packages
 # export PYTHONPATH=$PYTHONPATH:/usr/lib/python3.12
