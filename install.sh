@@ -1,14 +1,4 @@
 #!/bin/bash
-
-# packages
-yay -S yayfzf nvidia-dkms nvidia-utils hyprland waybar xdg-desktop-portal-hyprland libinput-gestures downgrade\
-neovim pipewire  pipewire-alsa pipewire-jack  pipewire-audio pipewire-pulse wireplumber pavucontrol pamixer networkmanager\
-network-manager-applet bluez bluez-utils blueman brightnessctl udiskie sddm qt5-quickcontrols qt5-quickcontrols2\
-qt5-graphicaleffects  rofi-wayland  swww swaylock-effects-git wlogout grimblast-git swappy cliphist slurp polkit-gnome \
-xdg-desktop-portal-gtk  pacman-contrib parallel jq imagemagick deno nemo libnotify nwg-drawer qt5ct qt6ct kvantum kvantum-qt5 \
-qt5-wayland qt6-wayland  kitty ark vim code yazi zsh oh-my-zsh-git neofetch bat alacritty cava btop bottom swaylock zathura zellij oh-my-posh nfs-utils egl-wayland
-
-
 # Define the source and target directories
 source_dir=$(pwd)
 target_dir="$HOME/.config"
