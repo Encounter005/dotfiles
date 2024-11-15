@@ -2,6 +2,8 @@ general.import = [
      "~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
+[env]
+term = "xterm-256color"
 
 [font]
     normal = {family = "JetBrainsMono Nerd Font" , style = "Regular"}
