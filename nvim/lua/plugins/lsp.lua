@@ -49,12 +49,11 @@ return {
                     local servers = {
                         "lua_ls",
                         "cssls",
-                        "ts_ls",
+                        "denols",
                         "ltex",
                         "stimulus_ls",
-                        "pylsp",
                         "sqls",
-                        -- "pyright",
+                        "pyright",
                         "bashls",
                         "jsonls",
                         "clangd",
@@ -67,6 +66,8 @@ return {
                         "volar",
                         "rust_analyzer",
                         "gopls",
+                        "buf_ls",
+                        "lemminx",
                     }
 
                     local settings = {
@@ -107,9 +108,12 @@ return {
                         if require_ok then
                             opts = vim.tbl_deep_extend("force", conf_opts, opts)
                         end
-
                         lspconfig[server].setup({ opts })
                     end
+                    -- custom settings
+                    lspconfig.clangd.setup({
+                        filetypes = { "c", "cpp", "objc", "objcpp" },
+                    })
                 end,
             },
             {
@@ -252,9 +256,11 @@ return {
                         css = { "prettier" },
                         json = { "prettier" },
                         jsonc = { "prettier" },
-                        yaml = { "prettier" },
+                        yaml = { "yamlfmt" },
                         java = { "google-java-format" },
                         cmake = { "gersemi" },
+                        proto = { "buf" },
+                        xml = {"xmlformatter"},
                     },
                     -- The options you set here will be merged with the builtin formatters.
                     -- You can also define any custom formatters here.
@@ -288,7 +294,7 @@ return {
                         -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
                         -- ['_'] = { 'fallback linter' },
                         ["*"] = { "codespell" },
-                        cpp = { "cpplint" },
+                        -- cpp = { "cpplint" },
                         python = { "pylint" },
                     },
                     -- LazyVim extension to easily override linter options
