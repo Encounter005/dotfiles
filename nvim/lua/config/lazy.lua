@@ -16,7 +16,8 @@ lazy.setup({
     { import = "plugins/ui" },
     { import = "plugins/tool" },
     { import = "plugins/lsp" },
-    { import = "plugins/cmp" },
+    { import = "plugins/cmpV2" },
+    -- { import = "plugins/cmp" },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
         -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.

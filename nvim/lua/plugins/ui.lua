@@ -76,6 +76,9 @@ return {
         name = "catppuccin",
         lazy = true,
         event = { "BufEnter" },
+        opts = {
+            integration = { blink_cmp = true },
+        },
     },
 
     {

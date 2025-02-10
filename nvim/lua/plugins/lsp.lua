@@ -66,7 +66,6 @@ return {
                         "volar",
                         "rust_analyzer",
                         "gopls",
-                        "buf_ls",
                         "lemminx",
                     }
 
@@ -94,7 +93,7 @@ return {
                     })
 
                     local lspconfig = require("lspconfig")
-                    local handlers = require("utils.handlers")
+                    local handlers = require("utils.handlersV2")
                     handlers.setup()
                     for _, server in ipairs(servers) do
                         opts = {
@@ -295,7 +294,7 @@ return {
                         -- ['_'] = { 'fallback linter' },
                         ["*"] = { "codespell" },
                         -- cpp = { "cpplint" },
-                        python = { "pylint" },
+                        -- python = { "pylint" },
                     },
                     -- LazyVim extension to easily override linter options
                     -- or add custom linters.

@@ -143,71 +143,105 @@ return {
             })
         end,
     },
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        cmd = "Neotree",
-        deactivate = function()
-            vim.cmd([[Neotree close]])
-        end,
-        init = function()
-            if vim.fn.argc(-1) == 1 then
-                local stat = vim.uv.fs_stat(vim.fn.argv(0))
-                if stat and stat.type == "directory" then
-                    require("neo-tree")
-                end
-            end
-        end,
+    -- {
+    --     "nvim-neo-tree/neo-tree.nvim",
+    --     branch = "v3.x",
+    --     cmd = "Neotree",
+    --     deactivate = function()
+    --         vim.cmd([[Neotree close]])
+    --     end,
+    --     init = function()
+    --         if vim.fn.argc(-1) == 1 then
+    --             local stat = vim.uv.fs_stat(vim.fn.argv(0))
+    --             if stat and stat.type == "directory" then
+    --                 require("neo-tree")
+    --             end
+    --         end
+    --     end,
+    --
+    --     config = function()
+    --         require("neo-tree").setup({
+    --             sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+    --             close_if_last_window = true,
+    --             popup_border_style = "rounded",
+    --             enable_git_status = true,
+    --             enable_diagnostics = true,
+    --             filesystem = {
+    --                 hide_dotfiles = false,
+    --                 hide_hidden = false,
+    --                 bind_to_cwd = false,
+    --                 follow_current_file = { enabled = true },
+    --                 use_libuv_file_watcher = true,
+    --                 visible = true,
+    --                 hide_gitignored = true,
+    --             },
+    --             window = {
+    --                 width = 30,
+    --                 close_if_last_window = true,
+    --                 popup_border_style = "rounded",
+    --                 enable_git_status = true,
+    --                 enable_diagnostics = true,
+    --                 mappings = {
+    --                     ["<space>"] = "none",
+    --                     ["Y"] = {
+    --                         function(state)
+    --                             local node = state.tree:get_node()
+    --                             local path = node:get_id()
+    --                             vim.fn.setreg("+", path, "c")
+    --                         end,
+    --                         desc = "copy path to clipboard",
+    --                     },
+    --                 },
+    --             },
+    --             default_component_configs = {
+    --                 indent = {
+    --                     indent_size = 2,
+    --                     with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+    --                     expander_collapsed = "",
+    --                     expander_expanded = "",
+    --                     expander_highlight = "NeoTreeExpander",
+    --                 },
+    --             },
+    --             source_selector = {
+    --                 winbar = true,
+    --                 show_scrolled_off_parent_node = false, -- this will replace the tabs with the parent path
+    --             },
+    --         })
+    --     end,
+    -- },
 
-        config = function()
-            require("neo-tree").setup({
-                sources = { "filesystem", "buffers", "git_status", "document_symbols" },
-                close_if_last_window = true,
-                popup_border_style = "rounded",
-                enable_git_status = true,
-                enable_diagnostics = true,
-                filesystem = {
-                    hide_dotfiles = false,
-                    hide_hidden = false,
-                    bind_to_cwd = false,
-                    follow_current_file = { enabled = true },
-                    use_libuv_file_watcher = true,
-                    visible = true,
-                    hide_gitignored = true,
-                },
-                window = {
-                    width = 30,
-                    close_if_last_window = true,
-                    popup_border_style = "rounded",
-                    enable_git_status = true,
-                    enable_diagnostics = true,
-                    mappings = {
-                        ["<space>"] = "none",
-                        ["Y"] = {
-                            function(state)
-                                local node = state.tree:get_node()
-                                local path = node:get_id()
-                                vim.fn.setreg("+", path, "c")
-                            end,
-                            desc = "copy path to clipboard",
-                        },
-                    },
-                },
-                default_component_configs = {
-                    indent = {
-                        indent_size = 2,
-                        with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-                        expander_collapsed = "",
-                        expander_expanded = "",
-                        expander_highlight = "NeoTreeExpander",
-                    },
-                },
-                source_selector = {
-                    winbar = true,
-                    show_scrolled_off_parent_node = false, -- this will replace the tabs with the parent path
-                },
-            })
-        end,
+    {
+        "mikavilpas/yazi.nvim",
+        event = "VeryLazy",
+        keys = {
+            -- 👇 in this section, choose your own keymappings!
+            {
+                "<leader>-",
+                "<cmd>Yazi<cr>",
+                desc = "Open yazi at the current file",
+            },
+            {
+                -- Open in the current working directory
+                "<leader>cw",
+                "<cmd>Yazi cwd<cr>",
+                desc = "Open the file manager in nvim's working directory",
+            },
+            {
+                -- NOTE: this requires a version of yazi that includes
+                -- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
+                "<c-up>",
+                "<cmd>Yazi toggle<cr>",
+                desc = "Resume the last yazi session",
+            },
+        },
+        ---@type YaziConfig
+        opts = {
+            -- if you want to open yazi instead of netrw, see below for more info
+            open_for_directories = false,
+            keymaps = {
+                show_help = "<f1>",
+            },
+        },
     },
     {
         "folke/persistence.nvim",
@@ -380,7 +414,8 @@ return {
                     { "<leader>r", "<cmd>Telescope oldfiles<CR>", desc = "Open Recent File" },
                     { "<leader>p", "<cmd>Lazy<CR>", desc = "Plugins", icon = "󰒲 " },
                     { "<leader>d", "<cmd>bdelete<CR>", desc = "Close Current Buffer", icon = "󰛉 " },
-                    { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "Explorer", icon = " " },
+                    -- { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "Explorer", icon = " " },
+                    { "<leader>e", "<cmd>Yazi<CR>", desc = "Explorer", icon = " " },
                     { "<leader>q", "<cmd>q!<CR>", desc = "Quit" },
                     { "<leader>h", "<cmd>nohlsearch<CR>", desc = "No Highlight", icon = " " },
                 },
@@ -1038,5 +1073,4 @@ return {
             highlight_for_count = true,
         },
     },
-
 }

@@ -11,7 +11,7 @@ return {
             -- "lukas-reineke/cmp-under-comparator", -- better sorting
             "hrsh7th/cmp-calc",
             "micangl/cmp-vimtex",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
+            -- "hrsh7th/cmp-nvim-lsp-signature-help",
             {
                 "kawre/neotab.nvim",
                 event = "InsertEnter",
@@ -34,7 +34,6 @@ return {
                 },
             },
         },
-
         config = function()
             local cmp, luasnip = require("cmp"), require("luasnip")
 
@@ -110,7 +109,7 @@ return {
                     { name = "nvim_lsp" },
                     { name = "path" },
                     { name = "snippets" },
-                    { name = "nvim_lsp_signature_help" },
+                    -- { name = "nvim_lsp_signature_help" },
                     { name = "codeium" },
                     { name = "nvim_lua" },
                     {
