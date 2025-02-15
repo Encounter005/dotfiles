@@ -1,6 +1,6 @@
 [[manager.prepend_keymap]]
 on   = "p"
-run  = "plugin --sync smart-paste"
+run  = "plugin smart-paste"
 desc = "Paste into the hovered directory or CWD"
 
 
@@ -12,12 +12,12 @@ run = [ '''
 
 [[manager.prepend_keymap]]
 on   = "<Right>"
-run  = "plugin --sync smart-enter"
+run  = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
 
 [[manager.prepend_keymap]]
 on   = "l"
-run  = "plugin --sync smart-enter"
+run  = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
 
 
@@ -43,3 +43,35 @@ desc = "Diff the selected with the hovered file"
 on   = "f"
 run  = "plugin smart-filter"
 desc = "Smart filter"
+
+[[manager.prepend_keymap]]
+on = ["t", "u"]
+run = "tab_create --current"
+desc = "Create a new tab using the current path"
+
+[[manager.prepend_keymap]]
+on = ["t", "n"]
+run = "tab_switch -1 --relative"
+desc = "Switch to the previous tab"
+
+[[manager.prepend_keymap]]
+on = ["t", "i"]
+run = "tab_switch 1 --relative"
+desc = "Switch to the next tab"
+
+[[manager.prepend_keymap]]
+on = ["t", "q"]
+run = "close"
+desc = "Close the current tab, or quit if it is last tab"
+
+[[manager.prepend_keymap]]
+on  = "<C-x>"
+run = 'shell -- dragon-drop -x -i -T "$1"'
+desc = "Drag and drop via"
+
+
+[[manager.prepend_keymap]]
+on  = "y"
+run = [ 'shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list', "yank" ]
+desc = "Copy selected files to system clipboard"
+

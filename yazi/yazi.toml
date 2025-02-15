@@ -3,6 +3,9 @@ show_hidden = true
 
 
 [opener]
+pdfreader = [
+  {  run = 'zathura "$@"', block = true  }
+]
 edit = [
 	{ run = 'nvim "$@"', block = true },
 ]
@@ -15,26 +18,39 @@ open = [
 image = [
   { run = 'imv "$@"', desc = "Image" }
 ]
-
 extract = [
 	{ run = 'ouch d -y "%*"', desc = "Extract here with ouch", for = "windows" },
 	{ run = 'ouch d -y "$@"', desc = "Extract here with ouch", for = "unix" },
 ]
 
+
 [open]
 rules = [
 	{ mime = "text/*", use = "edit" },
 	{ mime = "video/*", use = "play" },
-  #{ mime = "application/json", use = "text" },
-
+]
+prepend_rules = [
 	# Multiple openers for a single rule
 	{ name = "*.html", use = [ "browser", "text" ] },
-  { name = "*.png", use = [ "image" ] },
-  { name = "*.jpg", use = [ "image" ] },
+  { name = "*.json", use = ["edit"]   },
+  { name = "*.lua", use = ["edit"]   },
+  { name = "*.db", use = ["edit"]   },
+  { name = "*.c", use = ["edit"]   },
+  { name = "*.png",  use = [ "image" ] },
+  { name = "*.jpg",  use = [ "image" ] },
   { name = "*.webp", use = [ "image" ] },
-
-  { name = "*", use = ["open"] }
-
+  { name = "*.svg", use = [ "image" ] },
+  { name = "*.ico", use = [ "image" ] },
+  { name = "*.zip",  use = ["extract"] },
+  { name = "*.tar",  use = ["extract"]  },
+  { name = "*.rar",  use = ["extract"]  },
+  { name = "*.7z",   use = ["extract"]  },
+  { name = "*.xz",   use = ["extract"]  },
+  { name = "*.pdf",   use = ["pdfreader"]  },
+  { name = "*.py",      use = ["edit"] },
+]
+append_rules = [
+  { name = "*",      use = ["open"] },
 ]
 
 
@@ -42,7 +58,9 @@ rules = [
 prepend_previewers = [
   # mardown previewer
   { name = "*.md", run = "glow" },
-	# Archive previewer
+  # epub previewer
+  { name = "*.epub", run = "epub" },
+	# archive previewer
 	{ mime = "application/zip",             run = "ouch" },
 	{ mime = "application/gzip",            run = "ouch" },
 	{ mime = "application/x-tar",           run = "ouch" },
@@ -52,4 +70,10 @@ prepend_previewers = [
 	{ mime = "application/x-rar",           run = "ouch" },
 	{ mime = "application/xz",              run = "ouch" },
 	{ mime = "application/pdf",             run = "ouch" },
+  { mime = "{image,audio,video}/*",       run = "mediainfo"},
 ]
+
+prepend_preloaders= [
+  { name = "*.epub", run = "epub" },
+]
+

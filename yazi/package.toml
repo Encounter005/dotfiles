@@ -1,5 +1,7 @@
-[plugin]
-deps = [{ use = "yazi-rs/plugins:full-border", rev = "ad52adf" }, { use = "KKV9/compress", rev = "60b24af" }, { use = "yazi-rs/plugins:diff", rev = "ad52adf" }, { use = "yazi-rs/plugins:smart-filter", rev = "ad52adf" }, { use = "Reledia/glow", rev = "388e847" }, { use = "hankertrix/augment-command", rev = "57adf8d" }]
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "60484d6"
+hash = "920ab8372ee96cf0773bccc38af49461"
 
 [flavor]
 deps = []
