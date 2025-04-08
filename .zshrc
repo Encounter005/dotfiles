@@ -175,7 +175,7 @@ alias cls='clear'
 alias run='./run.sh'
 alias ai='aichat'
 alias n='neofetch'
-# alias ra='yazi'
+# alias ra='ranger'
 alias load='tmux at -t'
 alias q='exit'
 alias lazy='lazygit'
@@ -212,9 +212,6 @@ function ra() {
 
 # export PYTHONPATH=$PYTHONPATH:/usr/lib/python/site-packages
 # export PYTHONPATH=$PYTHONPATH:/usr/lib/python3.12
-# export PATH="/usr/local/bin/:$PATH"
-# export PATH="/usr/bin/:$PATH"
-# export PATH=" $HOME/.cargo/bin/:$PATH"
 # export C_INCLUDE_PATH=/usr/local/include:$C_INCLUDE_PATH
 # export CPLUS_INCLUDE_PATH=/usr/local/include:$CPLUS_INCLUDE_PATH
 
@@ -236,6 +233,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+# export PATH="/usr/local/bin/:$PATH"
+# export PATH="/usr/bin/:$PATH"
+# export PATH=" $HOME/.cargo/bin/:$PATH"
+
+export LD_LIBRARY_PATH=/usr/lib/:$LD_LIBRARY_PATH
 
 # bun completions
 [ -s "/home/encounter/.bun/_bun" ] && source "/home/encounter/.bun/_bun"

@@ -58,7 +58,7 @@ return {
             end
 
             --Custom snippets
-            local snippet_path = vim.fn.stdpath("config") .. "/my-snippets/"
+            local snippet_path = vim.fn.stdpath("config") .. "/snippets/"
             if not vim.tbl_contains(vim.opt.rtp:get(), snippet_path) then
                 vim.opt.rtp:append(snippet_path)
             end

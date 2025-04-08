@@ -1,7 +1,10 @@
 local M = {}
 
 M.capabilities = require('blink.cmp').get_lsp_capabilities()
-
+M.capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
 M.setup = function()
     local signs = {
 

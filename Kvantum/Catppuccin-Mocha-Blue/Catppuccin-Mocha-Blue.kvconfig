@@ -43,7 +43,7 @@ joined_inactive_tabs=false
 layout_spacing=2
 submenu_overlap=0
 tooltip_delay=-1
-animate_states=false
+animate_states=true
 transient_scrollbar=true
 alt_mnemonic=true
 combo_menu=true
@@ -63,12 +63,14 @@ dialog_button_layout=0
 drag_from_buttons=false
 hide_combo_checkboxes=false
 intensity=1.00
-no_inactiveness=false
-reduce_menu_opacity=0
-reduce_window_opacity=10
+no_inactiveness=true
+reduce_menu_opacity=20
+reduce_window_opacity=20
 saturation=1.00
 shadowless_popup=false
 transient_groove=false
+menu_blur_radius=0
+tooltip_blur_radius=0
 
 [GeneralColors]
 window.color=#1E1E2E
@@ -430,7 +432,7 @@ text.press.color=#CDD6F4
 text.focus.color=#CDD6F4
 
 [Hacks]
-transparent_dolphin_view=false
+transparent_dolphin_view=true
 blur_konsole=true
 transparent_ktitle_label=true
 transparent_menutitle=true

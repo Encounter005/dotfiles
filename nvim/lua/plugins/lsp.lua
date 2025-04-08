@@ -49,7 +49,8 @@ return {
                     local servers = {
                         "lua_ls",
                         "cssls",
-                        "denols",
+                        "html",
+                        "ts_ls",
                         "ltex",
                         "stimulus_ls",
                         "sqls",
@@ -259,7 +260,7 @@ return {
                         java = { "google-java-format" },
                         cmake = { "gersemi" },
                         proto = { "buf" },
-                        xml = {"xmlformatter"},
+                        xml = { "xmlformatter" },
                     },
                     -- The options you set here will be merged with the builtin formatters.
                     -- You can also define any custom formatters here.
@@ -382,4 +383,14 @@ return {
             },
         },
     },
+
+    "MysticalDevil/inlay-hints.nvim",
+    event = "LspAttach",
+    dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+        require("inlay-hints").setup({
+            commands = { enable = true }, -- Enable InlayHints commands, include `InlayHintsToggle`, `InlayHintsEnable` and `InlayHintsDisable`
+            autocmd = { enable = true }, -- Enable the inlay hints on `LspAttach` event
+        })
+    end,
 }

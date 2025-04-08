@@ -6,6 +6,11 @@ show_hidden = true
 pdfreader = [
   {  run = 'zathura "$@"', block = true  }
 ]
+
+docx = [
+    { run = 'libreoffice "$@"', block = true }
+]
+
 edit = [
 	{ run = 'nvim "$@"', block = true },
 ]
@@ -48,6 +53,7 @@ prepend_rules = [
   { name = "*.xz",   use = ["extract"]  },
   { name = "*.pdf",   use = ["pdfreader"]  },
   { name = "*.py",      use = ["edit"] },
+  { name = "*.docx", use = ["docx"] }
 ]
 append_rules = [
   { name = "*",      use = ["open"] },

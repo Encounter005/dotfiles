@@ -236,13 +236,12 @@ return {
 
     -- Web Development
     {
-        "ray-x/web-tools.nvim",
-        ft = { "html", "css" },
-        config = function()
-            require("web-tools").setup({})
-        end,
+        "brianhuster/live-preview.nvim",
+        dependencies = {
+            -- You can choose one of the following pickers
+            "nvim-telescope/telescope.nvim",
+        },
     },
-
     {
         "luckasRanarison/tailwind-tools.nvim",
         dependencies = { "nvim-treesitter/nvim-treesitter" },

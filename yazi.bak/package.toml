@@ -1,0 +1,42 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "ad52adf"
+hash = "3a73613fc702a5f8369791b3401f52f1"
+
+[[plugin.deps]]
+use = "KKV9/compress"
+rev = "60b24af"
+hash = "ee025be766240cc98e671754ac836da3"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:diff"
+rev = "ad52adf"
+hash = "5e210afb689ac24db7b324e3f02ecd87"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "ad52adf"
+hash = "ea24edab4a62c94dbd205adfb6f2c08d"
+
+[[plugin.deps]]
+use = "hankertrix/augment-command"
+rev = "57adf8d"
+hash = "617a604381546e8d6a71b888af8dfd5f"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "600614a"
+hash = "c1a2739e9ef2d837030ccb4267be3ed1"
+
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "ddfd5ec"
+hash = "30f1eb92543be9624503cb79d03dbd19"
+
+[[plugin.deps]]
+use = "Reledia/glow"
+rev = "5ce76dc"
+hash = "52e5f5c602962e7cbf874da28f52ba45"
+
+[flavor]
+deps = []
