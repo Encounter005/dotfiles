@@ -75,8 +75,7 @@
   )
 
 (unpin! org-roam)
-(package! org-roam-ui)
-(package! ob-mermaid)
+(package! org-roam-ui) (package! ob-mermaid)
 (package! pdf-tools)
 
 (package! livedown
@@ -108,6 +107,11 @@
   :recipe (:host github :repo "dalanicolai/djvu3" :files ("*.el"))
   )
 
+(package! flymake-brige
+  :recipe (:host github :repo "eki3z/flymake-bridge" :files ("*.el"))
+  )
 (package! valign)
 (package! org-superstar)
 (package! visual-fill-column)
+(package! counsel)
+(package! swiper)

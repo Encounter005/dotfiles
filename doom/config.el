@@ -32,9 +32,10 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (load-theme 'catppuccin t t)
+(load-theme 'catppuccin t t)
 (setq doom-theme 'catppuccin)
 (setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+;; (load-theme ''noctalia t)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -45,6 +46,8 @@
 
 
 ;; custom settings
+(setq default-frame-alist '((undecorated . t)))
+
 (setq
  projectile-project-search-path '("~/code/"))
 
@@ -68,6 +71,12 @@
 ;; enable word-wrap (almost) everywhere
 (+global-word-wrap-mode +1)
 
+;; error lens
+(use-package flymake
+  :custom ((flymake-start-on-flymake-mode nil)
+           (flymake-no-changes-timeout nil)
+           (flymake-show-diagnostic t)
+           (flymake-start-on-save-buffer t)))
 
 ;; djvu
 (require 'djvu)
@@ -162,6 +171,17 @@
 ;;    company-frontends '(company-pseudo-tooltip-unless-just-one-frontend company-preview-frontend)
 ;;    ))
 
+;; company configuration
+(after! sh-script
+  (set-company-backend! 'sh-mode nil))
+(with-eval-after-load 'company
+  ;; 绑定 Enter 键为确认补全
+  (define-key company-active-map (kbd "<return>") 'company-complete-selection)
+  (define-key company-active-map (kbd "RET") 'company-complete-selection)
+  )
+
+
+
 (setq scroll-margin 10)
 (setq hscroll-margin 10)
 
@@ -205,6 +225,7 @@
 (require 'langtool)
 
 
+;; org-configuration
 (font-lock-add-keywords 'org-mode
                         '(("^ *\([-]\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
@@ -221,14 +242,7 @@
 (setq prettify-symbols-unprettify-at-point 'right-edge)
 (add-hook 'org-mode-hook 'prettify-symbols-mode)
 
-;; disable company when eshell-mode
-(defun my-disable-company-in-eshell ()
-  (company-mode -1))
 
-(add-hook 'eshell-mode-hook 'my-disable-company-in-eshell)
-
-
-;; org-configuration
 (after! org
   (add-hook 'org-mode-hook
             (lambda ()
@@ -248,17 +262,10 @@
    org-hide-leading-stars nil
    org-image-actual-width '(800)
    org-indent-mode-turns-on-hiding-stars nil
-   org-todo-keywords '(
-                       (sequence  "TODO(t)" "WAITING(w)" "INPROGRESS(i)" "|" "CANCELLED(c)" "DONE(d)")
-                       )
-   org-todo-keyword-faces
-   '(
-     ("TODO" :foreground "#EEEE00" :weight normal :underline t)
-     ("WAITING" :foreground "#9f7efe":weight normal :underline t)
-     ("INPROGRESS" :foreground "#0098dd":weight normal :underline t)
-     ("CANCELLED" :foreground "#ff6480" :weight normal :underline t)
-     ("DONE" :foreground "#50a14f" :weight normal :underline t)
-     )
+   org-todo-keywords
+   '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w@/!)" "NEXT(n@/!)" "|" "DONE(d!)" "CANCELLED(c@)"))
+   ;; ！表示切换到该状态时记录时间，@表示记录一条备注
+
    ob-mermaid-cli-path "/usr/bin/mmdc"
    org-directory "~/org/"
    org-noter-notes-search-path '("~/org/notes/")
@@ -271,40 +278,95 @@
 
    org-agenda-files '("~/org/agenda/projects.org"
                       "~/org/agenda/inbox.org"
+                      "~/org/agenda/work.org"
                       "~/org/agenda/next_actions.org"
-                      "~/org/agenda/waiting_for.org"
-                      "~/org/agenda/someday.org")
+                      "~/org/agenda/archive.org"
+                      "~/org/agenda/waiting.org")
 
    org-capture-templates
-   '(("t" "Todo with Tag Selection" entry
-      (file+headline "~/org/agenda/inbox.org" "Inbox")
-      "* TODO %?\n  %T"
-      :tags " :工作:个人:学习:")
-     ("n" "Note with Tag Selection" entry
-      (file+headline "~/org/agenda/reference.org" "Notes")
-      "** %?\n  %T"
-      :tags " :想法:记录:会议:")
-     ("p" "Project with Tag Selection" entry
-      (file+headline "~/org/agenda/projects.org" "Projects")
-      "** %?\n  %T"
-      :tags " :重要:长期:")
-     ("w" "Waiting For with Tag Selection" entry
-      (file+headline "~/org/agenda/waiting_for.org" "Waiting For")
-      "* WAITING %?\n  %T"
-      :tags " :跟进:等待他人:")
-     ("s" "Someday/Maybe with Tag Selection" entry
-      (file+headline "~/org/agenda/someday.org" "Someday/Maybe")
-      "* %?\n  %T"
-      :tags " :将来:也许:")
-     )
+   '(("t" "Todo [Inbox]" entry (file+headline "~/org/agenda/inbox.org" "Tasks")
+      "* TODO %^{任务描述}  :%^{任务类型|dev|bugfix|env|doc|meeting}:\n  SCHEDULED: %^t\n  PRIORITY: %^{优先级|A|B|C|D}\n  %?\n  %i" :prepend t)
+     ("b" "Blog" plain (file ,(concat "~/org/blogs" (format-time-string "%Y-%m-%d.md")))
+      ,(concat "#+title: %^{标题}\n"
+               "#+date: %U\n"
+               "#+hugo_categories: %^{分类}\n"
+               "#+hugo_TAGS: %^{标签}\n"
+               "#+hugo_draft: %^{草稿|true|false}\n"
+               "\n"
+	       "%?"))
+     ("n" "Next Action" entry (file+headline "~/org/agenda/next_actions.org" "Next Action")
+      "* NEXT %?\n  SCHEDULED: %t" :prepend t)
+     ("p" "Project" entry (file+headline "~/org/agenda/projects.org" "New Projects")
+      "* %^{Project Name}\n%?" :prepend t)
+     ("s" "Someday" entry (file+headline "~/org/agenda/someday.org" "Maybe")
+      "* %?\n  %U" :prepend t))
+
+
+   org-refile-targets '(("~/org/agenda/next_actions.org" :maxlevel . 1)
+                        ("~/org/agenda/projects.org" :maxlevel . 1)
+                        ("~/org/agenda/waiting.org" :maxlevel . 1)
+                        ("~/org/agenda/work.org" :maxlevel . 1)
+                        ("~/org/agenda/someday.org" :maxlevel . 1))
+
+   org-outline-path-complete-in-steps nil
+   org-refile-use-outline-path 'file
+
+   org-todo-keyword-faces
+   '(("TODO" . (:foreground "OrangeRed" :weight bold))
+     ("INPROGRESS" . (:foreground "DeepSkyBlue" :weight bold))
+     ("DONE" . (:foreground "ForestGreen" :weight bold))
+     ("NEXT" . (:foreground "Yellow" :weight bold))
+     ("WAITING" . (:foreground "Violet" :weight bold)))
+
+   org-agenda-current-time-string "◀── 现在 ─────────────────────────────────────────"
+
+   org-tag-alist '((:startgroup)
+                   ("@Office" . ?o)
+                   ("@Home" . ?h)
+                   (:endgroup)
+                   ("Urgent" . ?u)
+                   ("Learning" . ?l)
+                   ("Working" . ?w)
+                   ("Research" . ?r))
+
+
+   org-babel-load-languages
+   '((mermaid . t)
+     (scheme . t))
    ))
 
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((mermaid . t)
-   (scheme . t)
-   ))
+(defun my/org-auto-refile-on-state-change ()
+  "根据 TODO 状态自动将任务移动到对应的文件。"
+  (let* ((state org-state)
+         (target-file nil)
+         (target-headline nil))
+
+    (cond
+     ((string= state "INPROGRESS")
+      (setq target-file "~/org/agenda/work.org")
+      (setq target-headline "Current Tasks"))
+
+     ((string= state "WAITING")
+      (setq target-file "~/org/agenda/waiting.org")
+      (setq target-headline "Waiting Tasks"))
+
+     ((string= state "DONED")
+      (setq target-file "~/org/agenda/archive.org")
+      (setq target-headline "Archived"))
+
+     ((string= state "NEXT")
+      (setq target-file "~/org/agenda/next_actions.org")
+      (setq target-headline "Next Actions")))
+    ;; 修正: 只有当 target-file 被赋值时才执行，防止报错
+    (when target-file
+      (if (file-exists-p target-file)
+          (progn
+            (org-refile nil nil (list target-headline target-file nil nil))
+            (message "任务已自动移至: %s" target-file))
+        (message "错误：找不到目标文件 %s" target-file)))))
+
+(add-hook 'org-after-todo-state-change-hook #'my/org-auto-refile-on-state-change)
 
 
 (use-package org-fancy-priorities
@@ -313,8 +375,15 @@
   :hook
   (org-mode . org-fancy-priorities-mode)
   :config
-  (setq org-fancy-priorities-list '("⚡" "⬆" "⬇" "☕")))
-
+  (setq org-fancy-priorities-list '((?A . "❗")
+                                    (?B . "⬆")
+                                    (?C . "⬇")
+                                    (?D . "☕")
+                                    (?1 . "⚡")
+                                    (?2 . "⮬")
+                                    (?3 . "⮮")
+                                    (?4 . "☕")
+                                    (?I . "Important"))))
 (use-package org-superstar
   :after org
   :custom
@@ -323,6 +392,41 @@
   (org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
   (org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷")))
 
+(use-package org-super-agenda
+  :init
+  ;; 在加载前可以设置的一些基础变量
+  (setq org-super-agenda-groups nil) ; 先清空默认值
+  :config
+  (org-super-agenda-mode 1)
+  (setq
+   org-agenda-custom-commands
+   '(("g" "GTD 全局视图"
+      ((todo "" ((org-agenda-overriding-header "所有待办状态汇总")
+                 (org-super-agenda-groups
+                  '((:name "🚀 正在进行" :todo "INPROGRESS" :order 1)
+                    (:name "📥 收件箱" :file-path "inbox.org" :order 2)
+                    (:name "🚧 项目" :file-path "projects.org" :order 3)
+                    (:name "⏳ 等待中" :todo "WAITING" :time-grid t :order 4)
+                    (:name "📅 有时间期限" :deadline t :order 5)
+                    (:name "🔧 下一步计划":file-path "next_actions.org" :time-grid t :order 6)
+                    (:name "🕰 未来规划":file-path "someday.org" :order 7)
+                    ))))))
+
+     ("w" "周计划日程"
+      ((agenda "" ((org-agenda-span 'week)
+                   (org-agenda-start-on-weekday 1)
+                   (org-agenda-overriding-header "本周时间轴")
+                   (org-super-agenda-groups
+                    '((:name "⏰ 时间轴任务" :time-grid t) ;; 匹配有具体时间的条目
+                      (:name "📅 今日计划" :scheduled today)
+                      (:name "⚠️ 逾期未完成" :deadline past)
+                      (:name "🏁 截止日临近" :deadline future)
+                      ;; 建议在周视图暂时不要 discard 掉所有，方便调试
+                      )))))))
+   )
+  )
+;; 确保在进入 Agenda 之前，这个模式是开着的
+(add-hook 'org-agenda-mode-hook 'org-super-agenda-mode)
 
 (use-package visual-fill-column
   :after org

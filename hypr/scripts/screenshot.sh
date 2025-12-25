@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-save_dir="$HOME/Pictures/tmp"
+save_dir="$HOME/Pictures/Screenshots"
 save_file=$(date +'%y%m%d_%Hh%Mm%Ss_screenshot.png')
 
 if [ ! -d "$save_dir" ]; then

@@ -1,11 +1,5 @@
 return {
     {
-        "Exafunction/codeium.nvim",
-        config = function()
-            require("codeium").setup()
-        end
-    },
-    {
         "saghen/blink.cmp",
         event = "InsertEnter",
 
@@ -13,9 +7,18 @@ return {
         dependencies = {
             "rafamadriz/friendly-snippets",
             "ribru17/blink-cmp-spell",
-            "saghen/blink.compat",
+            {
+                "saghen/blink.compat",
+                opts = {
+                    enabled_events = true,
+                },
+            },
             "echasnovski/mini.nvim",
             "hrsh7th/cmp-calc",
+            {
+                "Exafunction/codeium.nvim",
+                opts = {},
+            },
         },
 
         -- use a release tag to download pre-built binaries
@@ -85,7 +88,7 @@ return {
                 default = { "lsp", "path", "snippets", "buffer", "calc", "spell", "codeium" },
                 providers = {
                     codeium = {
-                        name = "Codeium",
+                        name = "codeium",
                         module = "blink.compat.source",
                         async = true,
                         score_offset = 98,
@@ -182,6 +185,7 @@ return {
                     menu = { auto_show = true },
                     -- Displays a preview of the selected item on the current line
                     ghost_text = { enabled = true },
+                    
                 },
             },
         },

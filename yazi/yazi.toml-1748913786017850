@@ -1,4 +1,4 @@
-[mgr]
+[manager]
 show_hidden = true
 
 
@@ -63,11 +63,7 @@ append_rules = [
 [plugin]
 prepend_previewers = [
   # mardown previewer
-  { name = "*.md", run = "rich-preview" },
-  { name = "*.csv", run = "rich-preview" },
-  { name = "*.rst", run = "rich-preview" },
-  { name = "*.ipynb", run = "rich-preview" },
-  { name = "*.json", run = "rich-preview" },
+  { name = "*.md", run = "glow" },
   # epub previewer
   { name = "*.epub", run = "epub" },
 	# archive previewer

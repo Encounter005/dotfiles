@@ -49,7 +49,7 @@ set mouse=a
 set t_Co=256
 filetype indent on
 set autoindent
-set tabstop=2
+set tabstop=4
 set shiftwidth=4
 set expandtab
 set softtabstop=2

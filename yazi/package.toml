@@ -1,7 +1,32 @@
 [[plugin.deps]]
 use = "boydaihungst/mediainfo"
-rev = "60484d6"
-hash = "920ab8372ee96cf0773bccc38af49461"
+rev = "af8bdf4"
+hash = "43fa632820cc91919c4e713652140b48"
+
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "cfb9140"
+hash = "b5067143415bd2d46c0dfa57319ddcef"
+
+[[plugin.deps]]
+use = "AnirudhG07/rich-preview"
+rev = "831234e"
+hash = "ed3363e256e210593f0f8e4cec3e36a9"
+
+[[plugin.deps]]
+use = "ourongxing/fast-enter"
+rev = "738356f"
+hash = "b209b5db91df69bdc6a4656cb8276cd9"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "19dc890"
+hash = "bcda8eeb3f4013bae156aecabfc745e8"
+
+[[plugin.deps]]
+use = "ktunprasert/git-files"
+rev = "c7289ad"
+hash = "cdb1a69bed63211c75b72521bbab875d"
 
 [flavor]
 deps = []
