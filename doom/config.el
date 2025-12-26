@@ -284,7 +284,7 @@
                       "~/org/agenda/waiting.org")
 
    org-capture-templates
-   '(("t" "Todo [Inbox]" entry (file+headline "~/org/agenda/inbox.org" "Tasks")
+   `(("t" "Todo [Inbox]" entry (file+headline "~/org/agenda/inbox.org" "Tasks")
       "* TODO %^{任务描述}  :%^{任务类型|dev|bugfix|env|doc|meeting}:\n  SCHEDULED: %^t\n  PRIORITY: %^{优先级|A|B|C|D}\n  %?\n  %i" :prepend t)
      ("b" "Blog" plain (file ,(concat "~/org/blogs" (format-time-string "%Y-%m-%d.md")))
       ,(concat "#+title: %^{标题}\n"
