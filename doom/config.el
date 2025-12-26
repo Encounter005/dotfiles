@@ -286,12 +286,11 @@
    org-capture-templates
    `(("t" "Todo [Inbox]" entry (file+headline "~/org/agenda/inbox.org" "Tasks")
       "* TODO %^{任务描述}  :%^{任务类型|dev|bugfix|env|doc|meeting}:\n  SCHEDULED: %^t\n  PRIORITY: %^{优先级|A|B|C|D}\n  %?\n  %i" :prepend t)
-     ("b" "Blog" plain (file ,(concat "~/org/blogs" (format-time-string "%Y-%m-%d.md")))
+     ("b" "Blog" plain (file ,(concat "~/org/blogs/" (format-time-string "%Y-%m-%d.org")))
       ,(concat "#+title: %^{标题}\n"
                "#+date: %U\n"
                "#+hugo_categories: %^{分类}\n"
                "#+hugo_TAGS: %^{标签}\n"
-               "#+hugo_draft: %^{草稿|true|false}\n"
                "\n"
 	       "%?"))
      ("n" "Next Action" entry (file+headline "~/org/agenda/next_actions.org" "Next Action")
