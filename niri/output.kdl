@@ -1,13 +1,22 @@
-output "eDP-1" {
-    mode "1920x1080@360"
-    scale 1
-    transform "normal"
-    position x=0 y=0
-}
-output "HDMI-A-1" {
-    focus-at-startup
-    mode "2560x1440@144"
-    scale 1
-    transform "normal"
-    position x=1920 y=0
+//  output "eDP-1" {
+//      mode "1920x1080@360"
+//      scale 1
+//      transform "normal"
+//      position x=0 y=0
+//  }
+//  output "HDMI-A-1" {
+//      focus-at-startup
+//      mode "2560x1440@144"
+//      scale 1
+//      transform "normal"
+//      position x=1920 y=0
+//
+//}
+
+ output "DP-1" {
+     focus-at-startup
+     mode "3440x1440@165.001"
+     scale 1
+     transform "normal"
+     position x=0 y=0
 }

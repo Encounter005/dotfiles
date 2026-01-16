@@ -1,10 +1,11 @@
 binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Q hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
-    Mod+R hotkey-overlay-title="Run an Application: launcher" { spawn "~/.config/hypr/scripts/launcher.sh"; }
+    Mod+Q hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    // Mod+R hotkey-overlay-title="Run an Application: launcher" { spawn "~/.config/hypr/scripts/launcher.sh"; }
     Mod+E hotkey-overlay-title="Run an FileManager: nemo" { spawn "nemo"; }
-    Mod+M hotkey-overlay-title="Run an PowerMenu" { spawn-sh "qs -c noctalia-shell ipc call sessionMenu toggle"; }
-    Super+L hotkey-overlay-title="Lock the Screen" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
+    // Mod+M hotkey-overlay-title="Run an PowerMenu" { spawn-sh "qs -c noctalia-shell ipc call sessionMenu toggle"; }
+    Alt+A hotkey-overlay-title="Screen shots" { spawn-sh "~/.config/hypr/scripts/screenshot.sh s"; }
+    // Super+L hotkey-overlay-title="Lock the Screen" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -33,8 +34,6 @@ binds {
     Mod+C repeat=false { close-window; }
 
     Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
@@ -45,11 +44,6 @@ binds {
     Shift+Down  { move-window-down; }
     Shift+Up    { move-window-up; }
     Shift+Right { move-column-right; }
-    Shift+H     { move-column-left; }
-    Shift+J     { move-window-down; }
-    Shift+K     { move-window-up; }
-    Shift+L     { move-column-right; }
-
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
     // Mod+J     { focus-window-or-workspace-down; }
@@ -90,8 +84,10 @@ binds {
 
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
-    Mod+U              { focus-workspace-down; }
-    Mod+I              { focus-workspace-up; }
+    Mod+UP          { focus-workspace-up; }
+    Mod+DOWN        { focus-workspace-down; }
+    // Mod+U              { focus-workspace-down; }
+    // Mod+I              { focus-workspace-up; }
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
     Mod+Ctrl+U         { move-column-to-workspace-down; }
@@ -215,7 +211,7 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
+    Alt+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
