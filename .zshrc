@@ -169,17 +169,20 @@ source ~/motd.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+alias rm='trash-put -i'
 alias pac='yay -S $(yayfzf)'
 alias ins='bash ~/install_yay.sh'
 alias cls='clear'
 alias run='./run.sh'
 alias ai='aichat'
-alias n='neofetch'
+alias n='fastfetch'
+alias f='fastfetch --colors-block-range-start 9 --colors-block-width 3'
 # alias ra='ranger'
 alias load='tmux at -t'
 alias q='exit'
 alias lazy='lazygit'
-alias tree='lsd --tree'
+# alias tree='lsd --tree'
 alias homew='curl https://wttr.in/Zhangzhou'
 alias schoolw='curl https://wttr.in/Ningbo'
 alias ze='zellij'
@@ -187,8 +190,9 @@ alias ls='lsd'
 alias ping='gping'
 alias e='exa --icons'
 alias tt='tldr'
+alias yay=paru
 alias nv='nvim'
-alias vim='nvim'
+alias wtui='taskwarrior-tui'
 alias t='fanyi'
 alias scr='scrcpy --max-size 1920 --max-fps 120'
 alias e='nvim $(fzf)'
@@ -196,17 +200,19 @@ alias cf='$(find * -type d | fzf)'
 alias ps='kitty +kitten icat' 
 alias mem='./checkmemory.sh'
 alias cat='bat'
-alias nvsql="nvim '+SQLua'"
+alias idea=' nohup /opt/intellij-idea-ultimate-edition/bin/idea.sh &'
+alias datagrip=' nohup /opt/datagrip/bin/datagrip.sh &'
+alias pycharm=' nohup /opt/pycharm-eap/bin/pycharm.sh &'
+alias webstorm=' nohup /opt/pycharm-eap/bin/webstorm.sh &'
 eval "$(oh-my-posh init zsh --config ~/clean-detailed.omp.json)"
 
 
 
 function ra() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
 
@@ -215,34 +221,12 @@ function ra() {
 # export C_INCLUDE_PATH=/usr/local/include:$C_INCLUDE_PATH
 # export CPLUS_INCLUDE_PATH=/usr/local/include:$CPLUS_INCLUDE_PATH
 
-
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/encounter/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/encounter/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/encounter/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/encounter/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
-# export PATH="/usr/local/bin/:$PATH"
-# export PATH="/usr/bin/:$PATH"
-# export PATH=" $HOME/.cargo/bin/:$PATH"
-
-export LD_LIBRARY_PATH=/usr/lib/:$LD_LIBRARY_PATH
-
 # bun completions
 [ -s "/home/encounter/.bun/_bun" ] && source "/home/encounter/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
+
+

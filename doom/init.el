@@ -22,8 +22,8 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       (company +childframe)           ; the ultimate code completion backend
-       ;;(corfu +orderless)  ; complete with cap(f), cape and a flying feather!
+       ;; (company +childframe)           ; the ultimate code completion backend
+       (corfu +icons )  ; complete with cap(f), cape and a flying feather!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;(ivy +childframe +icons +prescient)               ; a search engine for love and life
@@ -57,11 +57,11 @@
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format )  ; automated prettiness
+       (format)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
-       ;; objed             ; text object editing for the innocent
+       ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
@@ -69,12 +69,13 @@
 
 
        :emacs
-       (dired +ranger +icons)             ; making dired pretty [functional]
+       (dired +dirvish +icons)             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        eww               ; the internet is gross
        (ibuffer +icons)           ; interactive buffer management
        (undo +tree)              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
+       tramp
 
        :term
        ;;eshell            ; the elisp shell that works everywhere
@@ -83,22 +84,22 @@
        vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       syntax              ; tasing you for every semicolon you forget
+       ( syntax +childframe +icons +flymake )              ; tasing you for every semicolon you forget
        (spell +flyspell) ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
-       ;;biblio            ; Writes a PhD for you (citation needed)
+       biblio            ; Writes a PhD for you (citation needed)
        ;;collab            ; buffers with friends
        ( debugger +lsp)          ; FIXME stepping through code, to help you add bugs
-       ;;direnv
+       direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ( lookup +dictionary)              ; navigate your code and its documentation
-       ( lsp +peek +booster)               ; M-x vscode
+       ( lsp +peek +eglot) ; M-x vscode
        magit             ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -107,7 +108,7 @@
        terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        tree-sitter       ; syntax and parsing, sitting in a tree...
-       ;;upload            ; map local to remote projects via ssh/ftp
+       upload            ; map local to remote projects via ssh/ftp
 
        :os
        (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
@@ -136,7 +137,7 @@
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
-       ;;(go +lsp)         ; the hipster dialect
+       (go +lsp +tree-sitter)         ; the hipster dialect
        ;;(graphql +lsp)    ; Give queries a REST
        ;;(haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
@@ -146,7 +147,7 @@
        (javascript +lsp +tree-sitter); all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       ;;latex             ; writing papers in Emacs has never been so fun
+       ( latex +cdlatex +fold +lsp )             ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
        ;;ledger            ; be audit you can be
        ( lua +lsp +tree-sitter)               ; one-based indices? one-based indices
@@ -154,13 +155,13 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +roam2 +noter +pomodoro +pretty +pandoc +hugo +journal +dragndrop) ; organize your plain life in plain text
+       (org +roam +noter  +pretty +present +pandoc +hugo +journal +dragndrop) ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;graphviz          ; diagrams for confusing yourself even more
        ;;purescript        ; javascript, but functional
-       ( python +lsp +tree-sitter +pyright +cython +pyenv)            ; beautiful is better than ugly
-       qt                ; the 'cutest' gui framework ever
+       ( python +lsp +tree-sitter  +cython +uv  +pyright) ; beautiful is better than ugly
+       ( qt +lsp +tree-sitter )                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
        ;;rest              ; Emacs as a REST client

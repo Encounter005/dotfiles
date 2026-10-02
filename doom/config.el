@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "ComicShannsMono Nerd Font" :size 18 )
-      doom-variable-pitch-font (font-spec :family "ComicShannsMono Nerd Font" :size 18))
+(setq doom-font (font-spec :family "ComicShannsMono Nerd Font Mono" :size 20 )
+      doom-variable-pitch-font (font-spec :family "ComicShannsMono Nerd Font" :size 20))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -32,10 +32,12 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(load-theme 'catppuccin t t)
-(setq doom-theme 'catppuccin)
-(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
-;; (load-theme ''noctalia t)
+;; (load-theme 'noctalia t)
+;; (load-theme 'dank-emacs t)
+(load-theme 'batppuccin-mocha t)
+(setq doom-theme 'batppuccin-mocha)
+;; (setq doom-theme 'doom-wilmersdorf)
+;; (setq doom-theme 'omtose-darker)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -46,20 +48,56 @@
 
 
 ;; custom settings
+;; set tab-width
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq c-ts-mode-indent-offset 4)
+(setq-default c-basic-offset 4)
+(setq web-mode-markup-indent-offset 4) ; HTML 缩进
+(setq web-mode-css-indent-offset 4)    ; CSS 缩进
+(setq web-mode-code-indent-offset 4)   ; JS/PHP 缩进
+(setq python-indent-offset 4) ;; python 缩进
+
 (setq default-frame-alist '((undecorated . t)))
 
 (setq
  projectile-project-search-path '("~/code/"))
 
-(after! lsp-clangd
-  (setq lsp-clients-clangd-args
-        '("-j=3"
-          "--background-index"
-          "--clang-tidy"
-          "--completion-style=detailed"
-          "--header-insertion=never"
-          "--header-insertion-decorators=0"))
-  (set-lsp-priority! 'clangd 2))
+;;LSP
+;; make the inlayhints enabled when lsp-mode enabled
+(setq lsp-inlay-hint-enable t) ;; 全局开启
+
+;; error lens
+;; (setq lsp-lens-enable t)
+;; (setq lsp-ui-sideline-show-diagnostics t)
+
+
+;; cpp
+(with-eval-after-load 'cc-mode
+  (set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy")))
+
+
+
+;; python
+;; (setq lsp-pyright-python-executable-cmd ".venv/bin/python")
+(use-package uv-mode
+  :hook (python-mode . uv-mode-auto-activate-hook))
+;; pyright
+(after! lsp-pyright
+  (setq lsp-pyright-type-checking-mode "basic"
+        lsp-pyright-auto-import-completions t
+        lsp-pyright-multi-root nil
+        lsp-pyright-venv-path "."))
+(with-eval-after-load 'python
+  (set-formatter! 'ruff :modes '(python-mode python-ts-mode))
+  (set-eglot-client! '(python-mode python-ts-mode) '("ty" "server"))
+  )
+
+;; google translate
+(require 'google-translate)
+(require 'google-translate-smooth-ui)
+(global-set-key "\C-ct" 'google-translate-smooth-translate)
+
 
 (after! flyspell
   (setq flyspell-lazy-idle-seconds 2))
@@ -76,20 +114,43 @@
   :custom ((flymake-start-on-flymake-mode nil)
            (flymake-no-changes-timeout nil)
            (flymake-show-diagnostic t)
+           (flymake-show-diagnostic-at-end-of-line t)
            (flymake-start-on-save-buffer t)))
+
+;; symbols outline
+(use-package symbols-outline
+  :bind("C-c i" . symbols-outline-show)
+  :init
+  (add-hook 'eglot-managed-mode-hook
+            (lambda()
+              (setq-local symbols-outline-fetch-fn #'symbols-outline-lsp-fetch)
+              )
+            )
+  :config
+  (setq symbols-outline-window-position 'right)
+  (symbols-outline-follow-mode)
+  )
+
 
 ;; djvu
 (require 'djvu)
 (require 'djvu3)
 
 ;;auto-save
-(setq auto-save-visited-interval 5)
-(auto-save-visited-mode +1)
-;; (require 'auto-save)
-;; (auto-save-enable)
-;; (setq auto-save-silent t)
-;; (setq auto-save-delete-trailing-whitespace t)
-;; (setq auto-save-idle 0.1)
+;; (setq auto-save-visited-interval 5)
+;; (auto-save-visited-mode t)
+(require 'auto-save)
+(auto-save-enable)
+(setq auto-save-silent t)
+(setq auto-save-delete-trailing-whitespace nil)
+(setq auto-save-idle 5)
+;;; custom predicates if you don't want auto save.
+;;; disable auto save mode when current filetype is an gpg file.
+(setq auto-save-disable-predicates
+      '((lambda ()
+          (string-suffix-p
+           "gpg"
+           (file-name-extension (buffer-name)) t))))
 
 (after! evil-org
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
@@ -155,31 +216,16 @@
 ;;   (setq codeium/document/text 'my-codeium/document/text)
 ;;   (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
 
-;; ;; codeium-company
-;; (use-package company
-;;   :defer 0.1
-;;   :config
-;;   (global-company-mode t)
-;;   (setq-default
-;;    company-idle-delay 0.05
-;;    company-require-match nil
-;;    company-minimum-prefix-length 0
+;; corfu
+(setq
+ corfu-auto t
+ corfu-auto-prefix 2
+ corfu-auto-delay 0.2
+ )
 
-;;    ;; get only preview
-;;    ;; company-frontends '(company-preview-frontend)
-;;    ;; also get a drop down
-;;    company-frontends '(company-pseudo-tooltip-unless-just-one-frontend company-preview-frontend)
-;;    ))
-
-;; company configuration
-(after! sh-script
-  (set-company-backend! 'sh-mode nil))
-(with-eval-after-load 'company
-  ;; 绑定 Enter 键为确认补全
-  (define-key company-active-map (kbd "<return>") 'company-complete-selection)
-  (define-key company-active-map (kbd "RET") 'company-complete-selection)
-  )
-
+;; dirvish
+(map! :leader
+      :desc "Dirvish DWIM" "o e" #'dirvish-dwim)
 
 
 (setq scroll-margin 10)
@@ -202,6 +248,8 @@
 (add-hook! polymode
   (add-hook 'org-brain-visualize-mode-hook #'org-brain-polymode))
 
+;; latex-math preview
+;; (add-hook 'org-mode-hook 'org-fragtog-mode)
 ;; picpocket
 (add-hook 'picpocket-mode-hook
           (lambda ()
@@ -211,10 +259,13 @@
 
 ;; rime
 (require 'rime)
-(setq rime-user-data-dir "~/.config/fcitx/rime")
-(setq default-input-method "rime"
-      rime-show-candidate 'posframe)
+(setq rime-user-data-dir "~/.config/fcitx/rime"
+      default-input-method "rime"
+      rime-show-candidate 'posframe
+      )
 
+
+;; 设置国内源
 (setq package-archives '(("gnu"    . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                          ("melpa"  . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
@@ -242,26 +293,46 @@
 (setq prettify-symbols-unprettify-at-point 'right-edge)
 (add-hook 'org-mode-hook 'prettify-symbols-mode)
 
-
 (after! org
   (add-hook 'org-mode-hook
             (lambda ()
               (variable-pitch-mode 1)
               visual-line-mode))
+
+  (with-eval-after-load 'org (global-org-modern-mode))
+  (add-hook 'org-mode-hook #'valign-mode)
+
+  (require 'ol-fanyi)
   (setq
    org-agenda-skip-scheduled-if-done t
    org-hide-emphasis-markers t
    org-startup-indented t
    org-src-tab-acts-natively t
    org-pretty-entities t
+   org-pretty-entities-include-sub-superscripts nil
    org-log-done 'time
    org-ellipsis " ⭍"
    org-tags-column 0
    org-log-into-drawer t
-   org-pretty-entities t
    org-hide-leading-stars nil
    org-image-actual-width '(800)
    org-indent-mode-turns-on-hiding-stars nil
+   org-insert-heading-respect-content t
+   org-hide-emphasis-markers t
+   org-agenda-tags-column 0
+   org-special-ctrl-a/e t
+   org-auto-align-tags nil
+   org-startup-with-inline-images t
+   org-startup-with-latex-preview t
+   org-startup-with-animated-gifs t
+   org-display-remote-inline-images 'download
+
+   org-download-method 'attach
+   org-download-image-dir "~/Pictures/org"
+
+   org-modern-star 'nil
+   org-modern-table 'nil
+
    org-todo-keywords
    '((sequence "TODO(t)" "INPROGRESS(i)" "WAITING(w@/!)" "NEXT(n@/!)" "|" "DONE(d!)" "CANCELLED(c@)"))
    ;; ！表示切换到该状态时记录时间，@表示记录一条备注
@@ -275,7 +346,7 @@
    org-roam-db-gc-threshold most-positive-fixnum
    org-startup-with-inline-images t
    org-startup-with-latex-preview t
-
+   org-hugo-base-dir '"~/blogs"
    org-agenda-files '("~/org/agenda/projects.org"
                       "~/org/agenda/inbox.org"
                       "~/org/agenda/work.org"
@@ -285,12 +356,13 @@
 
    org-capture-templates
    `(("t" "Todo [Inbox]" entry (file+headline "~/org/agenda/inbox.org" "Tasks")
-      "* TODO %^{任务描述}  :%^{任务类型|dev|bugfix|env|doc|meeting}:\n  SCHEDULED: %^t\n  PRIORITY: %^{优先级|A|B|C|D}\n  %?\n  %i" :prepend t)
-     ("b" "Blog" plain (file ,(concat "~/org/blogs/" (format-time-string "%Y-%m-%d.org")))
-      ,(concat "#+title: %^{标题}\n"
-               "#+date: %U\n"
-               "#+hugo_categories: %^{分类}\n"
-               "#+hugo_TAGS: %^{标签}\n"
+      "* TODO [#%^{优先级|A|B|C|D}] %^{任务描述}  :%^{任务类型|dev|bugfix|env|doc|meeting}:\n  SCHEDULED: %^t\n %?\n  %i" :prepend t)
+     ("b" "Blog" plain (file my/org-capture-blog-path)
+      ,(concat "#+TITLE: %(file-name-base (org-capture-get :custom-title))\n"
+               "#+DATE: %U\n"
+               "#+HUGO_CATEGORIES: %^{分类}\n"
+               "#+HUGO_TAGS: %^{标签(每一个标签一个空格)}\n"
+               "#+HUGO_DRAFT: %^{草稿|true|false}\n"
                "\n"
 	       "%?"))
      ("n" "Next Action" entry (file+headline "~/org/agenda/next_actions.org" "Next Action")
@@ -305,6 +377,7 @@
                         ("~/org/agenda/projects.org" :maxlevel . 1)
                         ("~/org/agenda/waiting.org" :maxlevel . 1)
                         ("~/org/agenda/work.org" :maxlevel . 1)
+                        ("~/org/agenda/archive.org" :maxlevel . 1)
                         ("~/org/agenda/someday.org" :maxlevel . 1))
 
    org-outline-path-complete-in-steps nil
@@ -329,55 +402,83 @@
                    ("Research" . ?r))
 
 
-   org-babel-load-languages
-   '((mermaid . t)
-     (scheme . t))
+
+
    ))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (mermaid . t)
+   (scheme . t))
+ )
+(add-hook 'org-mode-hook #'auto-revert-mode)
+
+(defun my/org-capture-blog-path ()
+  "输入博客的标题"
+  (let* ((title (read-string "博客标题: "))
+         ;; 处理文件名：空格转横杠，转小写
+         (filename (replace-regexp-in-string " " "-" (downcase title)))
+         (path (expand-file-name (format "%s.org" filename) "~/org/blogs/")))
+    ;; 把原始的、漂亮的 title 存起来，给模板用
+    (org-capture-put :custom-title title)
+    path))
 
 
 (defun my/org-auto-refile-on-state-change ()
-  "根据 TODO 状态自动将任务移动到对应的文件。"
-  (let* ((state org-state)
-         (target-file nil)
-         (target-headline nil))
+  "根据 TODO 状态自动移动任务，但跳过 projects.org。"
+  (let ((current-file (buffer-file-name)))
+    ;; 特判：如果当前文件路径包含 "projects.org"，则直接退出函数
+    (unless (and current-file (string-match-p "projects\\.org" current-file))
+      (let* ((state org-state)
+             (target-file nil)
+             (target-headline nil))
 
-    (cond
-     ((string= state "INPROGRESS")
-      (setq target-file "~/org/agenda/work.org")
-      (setq target-headline "Current Tasks"))
+        (cond
+         ((string= state "INPROGRESS")
+          (setq target-file "~/org/agenda/work.org")
+          (setq target-headline "Current Tasks"))
 
-     ((string= state "WAITING")
-      (setq target-file "~/org/agenda/waiting.org")
-      (setq target-headline "Waiting Tasks"))
+         ((string= state "WAITING")
+          (setq target-file "~/org/agenda/waiting.org")
+          (setq target-headline "Waiting Tasks"))
 
-     ((string= state "DONED")
-      (setq target-file "~/org/agenda/archive.org")
-      (setq target-headline "Archived"))
+         ((string= state "DONE")
+          (setq target-file "~/org/agenda/archive.org")
+          (setq target-headline "Archived"))
 
-     ((string= state "NEXT")
-      (setq target-file "~/org/agenda/next_actions.org")
-      (setq target-headline "Next Actions")))
-    ;; 修正: 只有当 target-file 被赋值时才执行，防止报错
-    (when target-file
-      (if (file-exists-p target-file)
-          (progn
-            (org-refile nil nil (list target-headline target-file nil nil))
-            (message "任务已自动移至: %s" target-file))
-        (message "错误：找不到目标文件 %s" target-file)))))
+         ((string= state "NEXT")
+          (setq target-file "~/org/agenda/next_actions.org")
+          (setq target-headline "Next Actions")))
+
+        ;; 只有当 target-file 被赋值时才执行
+        (when target-file
+          (if (file-exists-p target-file)
+              (progn
+                ;; 注意：org-refile 在 hook 中使用时有时需要配合 save-excursion
+                (org-refile nil nil (list target-headline target-file nil nil))
+                (message "任务已自动移至: %s" target-file))
+            (message "错误：找不到目标文件 %s" target-file)))))))
 
 (add-hook 'org-after-todo-state-change-hook #'my/org-auto-refile-on-state-change)
 
 
+
+(use-package org-modern-indent
+                                        ; or
+                                        ; :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent"))
+  :config ; add late to hook
+  (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
+
 (use-package org-fancy-priorities
-  :ensure t
   :after org
   :hook
   (org-mode . org-fancy-priorities-mode)
   :config
-  (setq org-fancy-priorities-list '((?A . "❗")
-                                    (?B . "⬆")
-                                    (?C . "⬇")
-                                    (?D . "☕")
+  (setq org-fancy-priorities-list '((?A . "󰈸")
+                                    (?B . "󰹲")
+                                    (?C . "󰶟")
+                                    (?D . "󰈄")
                                     (?1 . "⚡")
                                     (?2 . "⮬")
                                     (?3 . "⮮")
@@ -388,8 +489,10 @@
   :custom
   (org-superstar-leading-bullet ?\s)
   (org-superstar-special-todo-items t)
-  (org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
-  (org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷")))
+  (org-superstar-item-bullet-alist '((?+ . ?➥) (?- . ?❖)))
+  ;; (org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷"))
+  )
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 (use-package org-super-agenda
   :init
@@ -411,17 +514,7 @@
                     (:name "🕰 未来规划":file-path "someday.org" :order 7)
                     ))))))
 
-     ("w" "周计划日程"
-      ((agenda "" ((org-agenda-span 'week)
-                   (org-agenda-start-on-weekday 1)
-                   (org-agenda-overriding-header "本周时间轴")
-                   (org-super-agenda-groups
-                    '((:name "⏰ 时间轴任务" :time-grid t) ;; 匹配有具体时间的条目
-                      (:name "📅 今日计划" :scheduled today)
-                      (:name "⚠️ 逾期未完成" :deadline past)
-                      (:name "🏁 截止日临近" :deadline future)
-                      ;; 建议在周视图暂时不要 discard 掉所有，方便调试
-                      )))))))
+     )
    )
   )
 ;; 确保在进入 Agenda 之前，这个模式是开着的
@@ -434,6 +527,11 @@
 
 (use-package! websocket
   :after org-roam)
+
+
+(require 'org-download)
+(add-hook 'dired-mode-hook 'org-download-enable)
+
 (use-package! org-roam-ui
   :after org-roam ;; or :after org
   ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
@@ -445,18 +543,58 @@
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
+
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+         "* %?"
+         :target (file+head "%<%Y-%m-%d>.org"
+                            "#+title: %<%Y-%m-%d>\n"))))
 (setq org-roam-capture-templates
       '(("d" "default" plain "%?"
-         :if-new (file+head "${slug}.org" "${title}\n#+filetags: :%^{Tags}:\n")
+         :target(file+head "${slug}.org" "#+title: ${title}\n#+startup: overview\n#+filetags: :%^{Tags}:\n")
          :unnarrowed t)
 
-        ("f" "Fleeting Note" plain "%?"
-         :if-new (file+head "fleeting/%<%Y%m%d%H%M%S>-${slug}.org" "%<%Y%m%d%H%M%S>--${title}\n#+filetags: :%^{Tags}:\n")
+        ("c" "Code" plain "%?"
+         :target
+         (file+head "code/${slug}.org"
+                    "#+title: ${title}\n#+startup: overview\n#+filetags: :%^{Tags}:\n")
          :unnarrowed t)
 
-        ("l" "Literature Note" plain "%?"
-         :if-new (file+head "literature/${slug}.org" "${title}\n#+ROAM_KEY: ${ref}\n#+filetags: :%^{Tags}:\n")
+        ("k" "Knowledge" plain "%?"
+         :target
+         (file+head "knowledge/${slug}.org"
+                    "#+title: ${title}\n#+startup: overview\n#+filetags: :%^{Tags}:\n")
+         :unnarrowed t)
+
+        ("t" "Tools" plain "%?"
+         :target
+         (file+head "tools/${slug}.org"
+                    "#+title: ${title}\n#+startup: overview\n#+filetags: :%^{Tags}:\n")
+         :unnarrowed t)
+
+        ("r" "Research" plain "%?"
+         :target (file+head "research/${slug}.org" "#+title: ${title}\n#+startup: overview\n#+ROAM_KEY: ${ref}\n#+filetags: :Research %^{Tags}:\n")
          :unnarrowed t)))
+;; webkit
+(require 'webkit)
+(require 'webkit-ace)
+(require 'webkit-dark)
+
+;; latex
+(setq +latex-viewers '(zathura))
+;; 语法高亮
+(setq org-highlight-latex-and-related '(native latex entities))
+
+;; focus
+(beacon-mode 1)
+
+;; fanyi-dwim
+(setq read-extended-command-predicate #'command-completion-default-include-p)
+
+;; golden-ratio
+(require' golden-ratio)
+(golden-ratio-mode 1)
+
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;

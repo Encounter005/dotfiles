@@ -3,35 +3,26 @@ on   = "p"
 run  = "plugin smart-paste"
 desc = "Paste into the hovered directory or CWD"
 
+# [[mgr.prepend_keymap]]
+# on  = "y"
+# run = [ '''
+# 	shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm
+# ''', "yank" ]
 
 [[mgr.prepend_keymap]]
-on  = "y"
-run = [ '''
-	shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm
-''', "yank" ]
-
-
-[[mgr.prepend_keymap]]
-on   = [ "l" ]
-run = "plugin fast-enter"
-desc = "Enter the subfolder faster, or open the file directly"
+on   = "l"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
 
 [[mgr.prepend_keymap]]
 on   = [ "<Right>" ]
-run = "plugin fast-enter"
+run = "plugin smart-enter"
 desc = "Enter the subfolder faster, or open the file directly"
 
 [[mgr.prepend_keymap]]
 on   = [ "i" ]
 run = "plugin easyjump"
 desc = "easyjump"
-
-
-[[mgr.prepend_keymap]]
-on = ["C"]
-run = "plugin ouch --args=zip"
-desc = "Compress with ouch"
-
 
 [[mgr.prepend_keymap]]
 on   = "<C-d>"
@@ -40,7 +31,7 @@ desc = "Diff the selected with the hovered file"
 
 
 [[mgr.prepend_keymap]]
-on   = "f"
+on   = "F"
 run  = "plugin smart-filter"
 desc = "Smart filter"
 
@@ -69,14 +60,23 @@ on  = "<C-x>"
 run = 'shell -- dragon-drop -x -i -T "$1"'
 desc = "Drag and drop via"
 
-
 [[mgr.prepend_keymap]]
 on  = "y"
 run = [ 'shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list', "yank" ]
 desc = "Copy selected files to system clipboard"
 
-
 [[mgr.prepend_keymap]]
 on  = [ "g", "c" ]
 run = "plugin git-files"
 desc = "Show Git file changes"
+
+[[mgr.prepend_keymap]]
+on = ["C"]
+run = "plugin ouch"
+desc = "Compress with ouch"
+
+[[mgr.prepend_keymap]]
+on   = "R"
+run  = "plugin omni-trash"
+desc = "Open Omni Trash"
+

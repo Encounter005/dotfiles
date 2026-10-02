@@ -13,16 +13,23 @@ layout {
     }
 
     shadow {
-        color "#00000070"
+        color "#11111b70"
     }
 
     tab-indicator {
         active-color   "#b4befe"
-        inactive-color "#001599"
+        inactive-color "#0123ff"
         urgent-color   "#f38ba8"
     }
 
     insert-hint {
         color "#b4befe80"
+    }
+}
+
+recent-windows {
+    highlight {
+        active-color "#b4befe"
+        urgent-color "#f38ba8"
     }
 }

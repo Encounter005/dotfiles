@@ -1,4 +1,4 @@
-;;; noctalia-theme.el --- Theme using Matugen SCSS variables
+;;; noctalia-theme.el --- Theme using Template SCSS variables -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2025 
 
@@ -9,7 +9,7 @@
 
 ;;; Commentary:
 
-;; A theme using Matugen SCSS variables with quality of life improvements:
+;; A theme using Template SCSS variables with quality of life improvements:
 ;; - Better source block distinction
 ;; - Improved text visibility when selected
 ;; - Refined org-mode styling with hidden asterisks
@@ -18,85 +18,85 @@
 
 ;;; Code:
 
-(deftheme noctalia "Theme using Matugen variables with quality of life improvements.")
+(deftheme noctalia "Theme using Template variables with quality of life improvements.")
 
 ;; Define all the color variables (replaced by template processor)
-(let* ((bg "#121318")
-      (err "#ffb4ab")
-      (err-container "#93000a")
-      (on-background "#e3e2e9")
-      (on-err "#690005")
-      (on-err-container "#ffdad6")
-      (on-primary "#192e60")
-      (on-primary-container "#dae1ff")
-      (on-secondary "#2a3042")
-      (on-secondary-container "#dde2f9")
-      (on-surface "#e3e2e9")
-      (on-surface-variant "#c5c6d0")
-      (on-tertiary "#422741")
-      (on-tertiary-container "#ffd6f9")
-      (outline-color "#8f909a")
-      (outline-variant "#45464f")
-      (primary "#b3c5ff")
-      (primary-container "#314578")
-      (secondary "#c1c6dd")
-      (secondary-container "#414659")
-      (shadow "#000000")
-      (surface "#121318")
-      (surface-container "#1e1f25")
-      (surface-container-high "#292a2f")
-      (surface-container-highest "#33343a")
-      (surface-container-low "#1a1b21")
-      (surface-container-lowest "#0d0e13")
-      (surface-variant "#45464f")
-      (tertiary "#e1bbdc")
-      (tertiary-container "#5a3d58")
+(let* ((bg "#1e1e2e")
+      (err "#f38ba8")
+      (err-container "#c8043a")
+      (on-background "#cdd6f4")
+      (on-err "#11111b")
+      (on-err-container "#fbd7e1")
+      (on-primary "#11111b")
+      (on-primary-container "#cdd3fe")
+      (on-secondary "#11111b")
+      (on-secondary-container "#340829")
+      (on-surface "#cdd6f4")
+      (on-surface-variant "#a3b4eb")
+      (on-tertiary "#11111b")
+      (on-tertiary-container "#e3d0fb")
+      (outline-color "#646789")
+      (outline-variant "#44465d")
+      (primary "#b4befe")
+      (primary-container "#0123ff")
+      (secondary "#f5bde6")
+      (secondary-container "#f10fb4")
+      (shadow "#11111b")
+      (surface "#1e1e2e")
+      (surface-container "#313244")
+      (surface-container-high "#3a3b50")
+      (surface-container-highest "#42435c")
+      (surface-container-low "#272839")
+      (surface-container-lowest "#212232")
+      (surface-variant "#313244")
+      (tertiary "#c6a0f6")
+      (tertiary-container "#6503e1")
       ;; Map success colors to tertiary (as used in other templates)
-      (success "#e1bbdc")
-      (on-success "#422741")
-      (success-container "#5a3d58")
-      (on-success-container "#ffd6f9")
+      (success "#c6a0f6")
+      (on-success "#11111b")
+      (success-container "#6503e1")
+      (on-success-container "#e3d0fb")
       ;; Map fixed colors to regular colors
-      (primary-fixed "#b3c5ff")
-      (primary-fixed-dim "#314578")
-      (secondary-fixed "#c1c6dd")
-      (secondary-fixed-dim "#414659")
-      (tertiary-fixed "#e1bbdc")
-      (tertiary-fixed-dim "#5a3d58")
-      (on-primary-fixed "#192e60")
-      (on-primary-fixed-variant "#dae1ff")
-      (on-secondary-fixed "#2a3042")
-      (on-secondary-fixed-variant "#dde2f9")
-      (on-tertiary-fixed "#422741")
-      (on-tertiary-fixed-variant "#ffd6f9")
+      (primary-fixed "#b4befe")
+      (primary-fixed-dim "#0123ff")
+      (secondary-fixed "#f5bde6")
+      (secondary-fixed-dim "#f10fb4")
+      (tertiary-fixed "#c6a0f6")
+      (tertiary-fixed-dim "#6503e1")
+      (on-primary-fixed "#11111b")
+      (on-primary-fixed-variant "#cdd3fe")
+      (on-secondary-fixed "#11111b")
+      (on-secondary-fixed-variant "#340829")
+      (on-tertiary-fixed "#11111b")
+      (on-tertiary-fixed-variant "#e3d0fb")
       ;; Map inverse colors to surface variants
-      (inverse-on-surface "#e3e2e9")
-      (inverse-primary "#b3c5ff")
-      (inverse-surface "#121318")
+      (inverse-on-surface "#cdd6f4")
+      (inverse-primary "#b4befe")
+      (inverse-surface "#1e1e2e")
       ;; Map terminal colors (term0-term15) to available colors
-      (term0 "#121318")
-      (term1 "#ffb4ab")
-      (term2 "#e1bbdc")
-      (term3 "#c1c6dd")
-      (term4 "#b3c5ff")
-      (term5 "#5a3d58")
-      (term6 "#414659")
-      (term7 "#e3e2e9")
-      (term8 "#8f909a")
-      (term9 "#ffb4ab")
-      (term10 "#e1bbdc")
-      (term11 "#c1c6dd")
-      (term12 "#b3c5ff")
-      (term13 "#5a3d58")
-      (term14 "#414659")
-      (term15 "#e3e2e9"))
+      (term0 "#1e1e2e")
+      (term1 "#f38ba8")
+      (term2 "#c6a0f6")
+      (term3 "#f5bde6")
+      (term4 "#b4befe")
+      (term5 "#6503e1")
+      (term6 "#f10fb4")
+      (term7 "#cdd6f4")
+      (term8 "#646789")
+      (term9 "#f38ba8")
+      (term10 "#c6a0f6")
+      (term11 "#f5bde6")
+      (term12 "#b4befe")
+      (term13 "#6503e1")
+      (term14 "#f10fb4")
+      (term15 "#cdd6f4"))
 
   (custom-theme-set-faces
    'noctalia
    ;; Basic faces
    `(default ((t (:background ,bg :foreground ,on-background))))
    `(cursor ((t (:background ,primary))))
-   `(highlight ((t (:background ,primary-container :foreground ,on-primary-container))))
+   `(highlight ((t (:background ,surface-container-high))))
    `(region ((t (:background ,primary-container :foreground ,on-primary-container :extend t))))
    `(secondary-selection ((t (:background ,secondary-container :foreground ,on-secondary-container :extend t))))
    `(isearch ((t (:background ,tertiary-container :foreground ,on-tertiary-container :weight bold))))
@@ -132,7 +132,7 @@
    `(show-paren-mismatch ((t (:background ,err-container :foreground ,on-err-container :weight bold))))
    
    ;; Mode line - improved status bar styling
-   `(mode-line ((t (:background ,surface-container :foreground ,on-surface :box nil))))
+   `(mode-line ((t (:background ,surface-container-high :foreground ,on-surface :box nil))))
    `(mode-line-inactive ((t (:background ,surface :foreground ,on-surface-variant :box nil))))
    `(mode-line-buffer-id ((t (:foreground ,primary :weight bold))))
    `(mode-line-emphasis ((t (:foreground ,primary :weight bold))))
@@ -209,6 +209,10 @@
    `(helm-ff-directory ((t (:foreground ,primary :weight bold))))
    `(helm-ff-file ((t (:foreground ,on-surface))))
    `(helm-ff-executable ((t (:foreground ,tertiary))))
+
+   ;; corfu
+   `(corfu-default ((t (:background ,surface-container :foreground ,on-surface))))
+   `(corfu-current ((t (:background ,primary-container :foreground ,on-primary-container))))
    
    ;; Which-key
    `(which-key-key-face ((t (:foreground ,primary :weight bold))))
@@ -315,6 +319,24 @@
    `(info-menu-header ((t (:foreground ,primary :weight bold))))
    `(info-menu-star ((t (:foreground ,primary))))
    `(info-node ((t (:foreground ,tertiary :weight bold))))
+
+   ;; Tabs
+   `(tab-bar ((t (:background ,surface-container-high :foreground ,on-surface :box nil))))
+   `(tab-bar-tab ((t (:background ,surface-container-high :foreground ,on-surface :weight bold :box nil))))
+   `(tab-bar-tab-inactive ((t (:background ,surface :foreground ,on-surface-variant :box nil))))
+
+   `(tab-line ((t (:background ,surface-container-high :foreground ,on-surface :box nil))))
+   `(tab-line-tab ((t (:background ,surface :foreground ,on-surface-variant :box nil))))
+   `(tab-line-tab-current ((t (:background ,surface-container-high :foreground ,on-surface :weight bold :box nil))))
+   `(tab-line-tab-inactive ((t (:background ,surface :foreground ,on-surface-variant :box nil))))
+   `(tab-line-highlight ((t (:background ,surface-container-highest :foreground ,on-surface))))
+
+   `(centaur-tabs-default ((t (:background ,surface-container-high :foreground ,on-surface))))
+   `(centaur-tabs-selected ((t (:background ,surface-container-high :foreground ,on-surface :weight bold))))
+   `(centaur-tabs-unselected ((t (:background ,surface :foreground ,on-surface-variant))))
+   `(centaur-tabs-selected-modified ((t (:background ,surface-container-high :foreground ,tertiary :weight bold))))
+   `(centaur-tabs-unselected-modified ((t (:background ,surface :foreground ,tertiary))))
+   `(centaur-tabs-active-bar-face ((t (:background ,primary))))
    
    ;; Fixed-pitch faces
    `(fixed-pitch ((t (:family "monospace"))))

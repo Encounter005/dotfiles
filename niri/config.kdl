@@ -2,10 +2,12 @@ include "binds.kdl"
 include "rule.kdl"
 include "output.kdl"
 include "animation.kdl"
-include "./noctalia.kdl"
-include "dms/colors.kdl" // include "dms/layout.kdl"
+include "dms/colors.kdl"
+include "dms/layout.kdl"
 include "dms/alttab.kdl"
-include "dms/binds.kdl"
+include "dms/cursor.kdl"
+
+// include "dms/binds.kdl"
 include "dms/wpblur.kdl"
 
 
@@ -32,6 +34,7 @@ environment {
     QT_AUTO_SCREEN_SCALE_FACTOR "1"
     _JAVA_AWT_WM_NONEREPARENTING "1"
     MOZ_DISABLE_RDD_SANDBOX "1"
+    DEBUGINFOD_URLS "https://debuginfod.archlinux.org"
 
 }
 
@@ -57,6 +60,11 @@ recent-windows {
     }
 }
 
+layer-rule {
+   match namespace="quickshell"
+   place-within-backdrop true
+}
+
 layout {
     gaps 10
     background-color "transparent"
@@ -80,27 +88,25 @@ layout {
     }
 }
 
+// Set the overview wallpaper on the backdrop.
 // layer-rule {
-//     match namespace="noctalia-wallpaper*"
-//     place-within-backdrop true
-//
-//
+//   match namespace="^noctalia-overview*"
+//   place-within-backdrop true
 // }
 
-
 spawn-at-startup "~/.config/hypr/scripts/resetxdgportal.sh"
+spawn-at-startup "dms" "run"
 spawn-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 spawn-at-startup "dbus-update-activation-environment --systemd --all"
 spawn-at-startup "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "blueman-applet"
 // spawn-at-startup "qs" "-c" "noctalia-shell"
-spawn-at-startup "dms" "run"
+// spawn-at-startup "dms" "run"
 spawn-at-startup "nm-applet --indicator"
 spawn-at-startup "fcitx5-remote -r"
 spawn-at-startup "fcitx5 -d --replace &"
-spawn-at-startup "wl-paste --type text --watch cliphist store"
-spawn-at-startup "wl-paste --type image --watch cliphist store"
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 spawn-at-startup "udiskie &"
 // spawn-at-startup "kvantummanager --set Catppuccin-Mocha-Lavender"
 // spawn-at-startup "gsettings set org.gnome.desktop.interface icon-theme 'Tela-circle-blue-dark'"
@@ -121,46 +127,84 @@ hotkey-overlay {
 prefer-no-csd
 
 overview {
-    zoom 0.7
+    zoom 0.6
+    workspace-shadow {
+        off
+    }
 }
-
 workspace "Browser" {}
-workspace "Edit" {}
+workspace "Code" {}
 workspace "Runner" {}
 workspace "Docs" {}
 workspace "Todo" {}
 workspace "Chat" {}
-workspace "X" {}
 
 window-rule {
     match title="Zen Browser"
     open-on-workspace "Browser"
-    opacity 1.0
     open-maximized true
 }
+
+
 
 window-rule {
     match title="QQ"
     match title="微信"
+    match title="NetEase Cloud Music Gtk4"
     open-on-workspace "Chat"
     open-floating false
-    open-focused false
+    open-focused true
     draw-border-with-background false
+    background-effect {
+        blur false
+    }
 }
 
 
-
+// terminal rules
 window-rule {
     match title="Xwayland"
     open-on-workspace "X"
 }
+window-rule {
+    match app-id="foot"
+    match app-id="kitty"
+    match app-id="Alacritty"
+    background-effect {
+        blur false
+    }
+}
 
 window-rule {
-    geometry-corner-radius 12
+    match app-id="emacs"
+    background-effect {
+        blur false
+    }
+    opacity 0.95
+}
+window-rule {
+    match app-id="scrcpy"
+    background-effect {
+        blur false
+    }
+    opacity 1.0
+}
+
+window-rule {
+    geometry-corner-radius 20
     clip-to-geometry true
     match app-id=r#"org.quickshell$"#
     open-floating true
+    tiled-state true
 
 }
 
+
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}
+
 include "dms/cursor.kdl"
+
+include "dms/windowrules.kdl"

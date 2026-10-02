@@ -1,5 +1,5 @@
 general.import = [
-     "~/.config/alacritty/catppuccin-mocha.toml"
+     "~/.config/alacritty/themes/noctalia.toml"
 ]
 
 [env]

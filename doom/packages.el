@@ -48,11 +48,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-(package! challenger-deep-theme)
-(package! catppuccin-theme)
-(package! impatient-mode)
-(package! org-super-agenda)
-(package! org-transclusion)
 ;; (package! emacs-application-framework
 ;;   :recipe (:host github :repo "emacs-eaf/emacs-application-framework"
 ;;            :files ("*.el" "*.json" "*.py" "core" "extension" "app" "reinput")
@@ -92,12 +87,10 @@
 (package! htmlz-mode
   :recipe (:host github :repo "0xekez/htmlz-mode" :files ("*.el"))
   )
+
 (package! org-pretty-table
   :recipe (:host github :repo "Fuco1/org-pretty-table" :files ("*.el"))
-  )
-(package! rg)
-(package! org-bullets)
-(package! impatient-mode)
+ )
 
 (package! djvu
   :recipe (:host github :repo "emacsmirror/djvu" :files ("*.el"))
@@ -110,8 +103,54 @@
 (package! flymake-brige
   :recipe (:host github :repo "eki3z/flymake-bridge" :files ("*.el"))
   )
+
+(package! auto-save
+  :recipe (:host github :repo "manateelazycat/auto-save" :files ("*.el"))
+  )
+
+(package! org-modern-indent
+  :recipe (:host github :repo "jdtsmith/org-modern-indent" :files ("*.el"))
+  )
+
+(package! emacs-webkit
+  :recipe (:host github :repo "akirakyle/emacs-webkit" :files (:defaults "*.js" "*.css" "*.so" "Makefile" "*.h") :pre-build("make"))
+  )
+
+(package! aanila-theme
+  :recipe (:host github :repo "santoshs/aanila" :files ("*.el"))
+  )
+
+(package! beacon
+  :recipe (:host github :repo "Malabarba/beacon" :files ("*.el"))
+  )
+
+(package! bibtex-capf
+  :recipe (:host github :repo "mclear-tools/bibtex-capf" :files ("*.el"))
+  )
+
+(package! symbols-outline)
+(package! golden-ratio)
+(package! omtose-phellack-themes)
 (package! valign)
 (package! org-superstar)
+(package! org-modern)
 (package! visual-fill-column)
 (package! counsel)
 (package! swiper)
+(package! nov)
+(package! rg)
+(package! org-fancy-priorities)
+(package! org-bullets)
+(package! impatient-mode)
+(package! batppuccin)
+(package! impatient-mode)
+(package! org-fragtog)
+(package! org-super-agenda)
+(package! org-transclusion)
+(package! org-download)
+(package! pythonic)
+(package! uv-mode)
+(package! google-translate)
+(package! shrface)
+(package! afternoon-theme)
+(package! org-roam-bibtex)
